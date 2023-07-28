@@ -1,4 +1,4 @@
-package com.prmto.inviostaj
+package com.prmto.inviostaj.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
