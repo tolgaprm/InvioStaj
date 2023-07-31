@@ -10,7 +10,7 @@ class MovieRemoteDataSourceImpl @Inject constructor(
     private val api: TmdbApi
 ) : MovieRemoteDataSource {
     override suspend fun getTopRatedMovies(page: Int): ApiResponse<MovieDto> {
-        return api.getTopRatedMovies()
+        return api.getTopRatedMovies(page)
     }
 
     override suspend fun getMovieGenreList(): GenreList {
