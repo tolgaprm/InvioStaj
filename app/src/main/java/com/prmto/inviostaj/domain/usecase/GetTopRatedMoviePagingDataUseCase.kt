@@ -10,13 +10,18 @@ import javax.inject.Inject
 
 class GetTopRatedMoviePagingDataUseCase @Inject constructor(
     private val repository: MovieRepository,
-    private val getMovieGenreListUseCase: GetMovieGenreListUseCase
+    private val convertVoteCountToKFormatUseCase: ConvertVoteCountToKFormatUseCase,
+    private val convertGenreListToSeparatedByCommaUseCase: ConvertGenreListToSeparatedByCommaUseCase
 ) {
     operator fun invoke(): Flow<PagingData<Movie>> {
         return repository.getTopRatedMovies().map { pagingData ->
             pagingData.map { movie ->
                 movie.copy(
-                    genresBySeparatedByComma = getMovieGenreListUseCase().joinToString(", ")
+                    genresBySeparatedByComma = convertGenreListToSeparatedByCommaUseCase(
+                        genreIds = movie.genreIds,
+                        genreList = repository.getMovieGenreList().genres
+                    ),
+                    voteCountByString = convertVoteCountToKFormatUseCase(voteCount = movie.voteCount)
                 )
             }
         }
