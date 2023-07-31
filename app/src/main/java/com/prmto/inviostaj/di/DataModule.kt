@@ -1,9 +1,11 @@
 package com.prmto.inviostaj.di
 
-import com.prmto.inviostaj.data.remote.MovieRemoteDataSource
-import com.prmto.inviostaj.data.remote.MovieRemoteDataSourceImpl
 import com.prmto.inviostaj.data.remote.RequestInterceptor
 import com.prmto.inviostaj.data.remote.TmdbApi
+import com.prmto.inviostaj.data.remote.datasource.MovieRemoteDataSource
+import com.prmto.inviostaj.data.remote.datasource.MovieRemoteDataSourceImpl
+import com.prmto.inviostaj.data.repository.MovieRepositoryImpl
+import com.prmto.inviostaj.domain.repository.MovieRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -53,5 +55,13 @@ object DataModule {
         tmdbApi: TmdbApi
     ): MovieRemoteDataSource {
         return MovieRemoteDataSourceImpl(tmdbApi)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieRepository(
+        movieRemoteDataSource: MovieRemoteDataSource
+    ): MovieRepository {
+        return MovieRepositoryImpl(movieRemoteDataSource)
     }
 }
