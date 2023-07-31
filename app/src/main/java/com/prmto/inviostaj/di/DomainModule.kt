@@ -1,6 +1,7 @@
 package com.prmto.inviostaj.di
 
 import com.prmto.inviostaj.domain.repository.MovieRepository
+import com.prmto.inviostaj.domain.usecase.ConvertDateFormatUseCase
 import com.prmto.inviostaj.domain.usecase.ConvertGenreListToSeparatedByCommaUseCase
 import com.prmto.inviostaj.domain.usecase.ConvertVoteCountToKFormatUseCase
 import com.prmto.inviostaj.domain.usecase.GetTopRatedMoviePagingDataUseCase
@@ -23,7 +24,8 @@ object DomainModule {
         return GetTopRatedMoviePagingDataUseCase(
             repository = repository,
             convertVoteCountToKFormatUseCase = ConvertVoteCountToKFormatUseCase(),
-            convertGenreListToSeparatedByCommaUseCase = ConvertGenreListToSeparatedByCommaUseCase()
+            convertGenreListToSeparatedByCommaUseCase = ConvertGenreListToSeparatedByCommaUseCase(),
+            convertDateFormatUseCase = ConvertDateFormatUseCase()
         )
     }
 }
