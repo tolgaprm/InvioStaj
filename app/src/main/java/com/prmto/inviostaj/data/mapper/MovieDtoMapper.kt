@@ -11,6 +11,7 @@ fun MovieDto.toMovie(): Movie {
         title = title,
         originalTitle = originalTitle,
         posterPath = posterPath,
+        backdropPath = backdropPath,
         releaseDate = releaseDate,
         genreIds = genreIds,
         voteCount = voteCount,

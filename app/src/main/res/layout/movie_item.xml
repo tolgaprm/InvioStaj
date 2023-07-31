@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/large_margin"
+    android:background="?attr/colorOnSurface"
+    app:cardCornerRadius="@dimen/movie_item_radius"
+    app:cardElevation="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorSurface">
+
+        <ImageView
+            android:id="@+id/imv_movie_item_backdrop"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/movie_item_height"
+            android:alpha="0.3"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="w,16:9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/imv_movie_item_poster"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/movie_item_height"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="w,12:16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+
+        <TextView
+            android:id="@+id/tv_movie_item_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:maxLines="1"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imv_movie_item_backdrop"
+            tools:text="Spiderman No Way Home" />
+
+
+        <TextView
+            android:id="@+id/tv_movie_item_release_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            app:layout_constraintStart_toStartOf="@+id/tv_movie_item_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_item_name"
+            tools:text="2023 June" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="6dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="@dimen/large_margin"
+            android:background="?colorOnSurface"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_movie_item_release_date"
+            app:layout_constraintStart_toEndOf="@+id/tv_movie_item_release_date"
+            app:layout_constraintTop_toTopOf="@+id/tv_movie_item_release_date" />
+
+        <ImageView
+            android:id="@+id/imv_ic_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/large_margin"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_star_yellow"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintStart_toEndOf="@id/view"
+            app:layout_constraintTop_toTopOf="@+id/view"
+            tools:layout_editor_absoluteX="85dp" />
+
+        <TextView
+            android:id="@+id/tv_movie_item_vote_average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imv_ic_star"
+            app:layout_constraintStart_toEndOf="@+id/imv_ic_star"
+            app:layout_constraintTop_toTopOf="@+id/imv_ic_star"
+            tools:text="8.4 (1 k)" />
+
+        <TextView
+            android:id="@+id/tv_movie_item_overview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:padding="@dimen/medium_padding"
+            android:textAlignment="textStart"
+            android:textColor="?attr/colorOnSurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_item_release_date"
+            tools:text="The design has been designed with fully auto layout, so it is very adaptive if you want to edit, delete or add some parts. If you are not familiar with auto layout, you can turn it off by right-clicking the layer, and selecting remove auto layout." />
+
+        <TextView
+            android:id="@+id/tv_movie_item_genre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:padding="@dimen/medium_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tv_movie_item_overview"
+            app:layout_constraintStart_toStartOf="@+id/tv_movie_item_overview"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_item_overview"
+            tools:text="Action, Adventure, Science, Fiction, Hero," />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

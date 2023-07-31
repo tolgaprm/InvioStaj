@@ -3,4 +3,7 @@
     <string name="home_bottom_nav">Home</string>
     <string name="explore_bottom_nav">Explore</string>
     <string name="favorite_bottom_nav">Favorite</string>
+    <string name="home_screen_toolbar_title">Home Screen</string>
+
+    <string name="voteAverage">%1$s (%2$s)</string>
 </resources>

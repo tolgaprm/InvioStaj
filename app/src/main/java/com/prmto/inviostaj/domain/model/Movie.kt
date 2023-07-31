@@ -6,11 +6,11 @@ data class Movie(
     val title: String,
     val originalTitle: String,
     val posterPath: String?,
+    val backdropPath: String?,
     var releaseDate: String?,
     val genreIds: List<Int>,
     val voteCount: Int,
     val genresBySeparatedByComma: String = "",
     val voteAverage: Double,
-    val genreByOne: String = "",
     val voteCountByString: String = "", // Format like 1000 k
 )
