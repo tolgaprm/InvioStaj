@@ -2,14 +2,18 @@ package com.prmto.inviostaj.presentation.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prmto.inviostaj.R
 import com.prmto.inviostaj.databinding.FragmentHomeBinding
+import com.prmto.inviostaj.util.isErrorWithLoadState
+import com.prmto.inviostaj.util.isLoading
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -27,7 +31,31 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         homeBinding = binding
 
         setupRecyclerView()
+        addLoadStateListener()
         collectTopRatedMovies()
+        collectHomeUiState()
+        addListenerToBtnTryAgain()
+    }
+
+    private fun addListenerToBtnTryAgain() {
+        homeBinding?.let { homeBinding ->
+            homeBinding.errorLayout.btnErrorLayoutTryAgain.setOnClickListener {
+                moviePagingAdapter.retry()
+            }
+        }
+    }
+
+    private fun collectHomeUiState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.state.flowWithLifecycle(lifecycle = lifecycle).collectLatest { homeUiState ->
+                homeBinding?.let { homeBinding ->
+                    homeBinding.progressBar.isVisible = homeUiState.isLoading
+                    homeBinding.rvHomeMovieList.isVisible = !homeUiState.isLoading
+                    homeBinding.rvHomeMovieList.isVisible = homeUiState.isError
+                    homeBinding.errorLayout.root.isVisible = !homeUiState.isError
+                }
+            }
+        }
     }
 
     private fun setupRecyclerView() {
@@ -46,6 +74,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     moviePagingAdapter.submitData(moviePagingData)
                 }
             }
+        }
+    }
+
+    private fun addLoadStateListener() {
+        moviePagingAdapter.addLoadStateListener { combinedLoadStates ->
+            val isError = combinedLoadStates.isErrorWithLoadState()?.let {
+                false
+            } ?: true
+            viewModel.updateErrorState(isError = isError)
+            viewModel.updateLoadingState(isLoading = combinedLoadStates.isLoading())
         }
     }
 

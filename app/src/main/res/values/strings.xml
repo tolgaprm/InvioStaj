@@ -6,4 +6,6 @@
     <string name="home_screen_toolbar_title">Home Screen</string>
 
     <string name="voteAverage">%1$s (%2$s)</string>
+    <string name="try_again">Try Again</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>
