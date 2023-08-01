@@ -16,7 +16,8 @@ fun MovieEntity.toMovie(): Movie {
         voteCountByString = voteCountByString,
         title = originalTitle,
         genreIds = listOf(),
-        voteCount = 0
+        voteCount = 0,
+        isFavorite = true
     )
 }
 

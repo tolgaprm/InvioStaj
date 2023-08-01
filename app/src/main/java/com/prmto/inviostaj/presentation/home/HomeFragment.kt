@@ -32,7 +32,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val binding = FragmentHomeBinding.bind(view)
         homeBinding = binding
 
-        setupRecyclerView()
+        setupRecyclerViewAndAdapter()
         addLoadStateListener()
         collectTopRatedMovies()
         collectHomeUiState()
@@ -63,7 +63,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private fun setupRecyclerView() {
+    private fun setupRecyclerViewAndAdapter() {
         moviePagingAdapter = MoviePagingAdapter(
             onToggleFavoriteClicked = { movie ->
                 viewModel.toggleFavoriteMovie(movie = movie)

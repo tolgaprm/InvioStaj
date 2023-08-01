@@ -7,6 +7,7 @@ import androidx.paging.map
 import com.prmto.inviostaj.domain.model.Movie
 import com.prmto.inviostaj.domain.repository.MovieRepository
 import com.prmto.inviostaj.domain.usecase.GetTopRatedMoviePagingDataUseCase
+import com.prmto.inviostaj.domain.usecase.ToggleFavoriteMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,6 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     getTopRatedMoviePagingDataUseCase: GetTopRatedMoviePagingDataUseCase,
+    private val toggleFavoriteMovieUseCase: ToggleFavoriteMovieUseCase,
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
@@ -43,11 +45,7 @@ class HomeViewModel @Inject constructor(
 
     fun toggleFavoriteMovie(movie: Movie) {
         viewModelScope.launch {
-            if (movie.isFavorite) {
-                movieRepository.deleteFavoriteMovie(movie)
-            } else {
-                movieRepository.insertFavoriteMovie(movie)
-            }
+            toggleFavoriteMovieUseCase(movie)
         }
     }
 }
