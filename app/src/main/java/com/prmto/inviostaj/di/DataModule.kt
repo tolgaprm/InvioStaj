@@ -1,5 +1,10 @@
 package com.prmto.inviostaj.di
 
+import android.content.Context
+import androidx.room.Room
+import com.prmto.inviostaj.data.local.InvioDatabase
+import com.prmto.inviostaj.data.local.datasource.MovieLocalDataSource
+import com.prmto.inviostaj.data.local.datasource.MovieLocalDataSourceImpl
 import com.prmto.inviostaj.data.remote.RequestInterceptor
 import com.prmto.inviostaj.data.remote.api.TmdbApi
 import com.prmto.inviostaj.data.remote.datasource.MovieRemoteDataSource
@@ -11,6 +16,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -51,17 +57,41 @@ object DataModule {
 
     @Provides
     @Singleton
+    fun provideInvioDatabase(
+        @ApplicationContext context: Context
+    ): InvioDatabase {
+        return Room.databaseBuilder(
+            context,
+            InvioDatabase::class.java,
+            InvioDatabase.DATABASE_NAME
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieLocalDataSource(
+        invioDatabase: InvioDatabase
+    ): MovieLocalDataSource {
+        return MovieLocalDataSourceImpl(movieDao = invioDatabase.movieDao())
+    }
+
+    @Provides
+    @Singleton
     fun provideMovieRemoteDataSource(
         tmdbApi: TmdbApi
     ): MovieRemoteDataSource {
-        return MovieRemoteDataSourceImpl(tmdbApi)
+        return MovieRemoteDataSourceImpl(api = tmdbApi)
     }
 
     @Provides
     @Singleton
     fun provideMovieRepository(
-        movieRemoteDataSource: MovieRemoteDataSource
+        movieRemoteDataSource: MovieRemoteDataSource,
+        movieLocalDataSource: MovieLocalDataSource
     ): MovieRepository {
-        return MovieRepositoryImpl(movieRemoteDataSource)
+        return MovieRepositoryImpl(
+            movieRemoteDataSource = movieRemoteDataSource,
+            movieLocalDataSource = movieLocalDataSource
+        )
     }
 }
