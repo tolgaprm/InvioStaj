@@ -4,6 +4,8 @@
     <string name="explore_bottom_nav">Explore</string>
     <string name="favorite_bottom_nav">Favorite</string>
     <string name="home_screen_toolbar_title">Home Screen</string>
+    <string name="explore_screen_toolbar_title">Explore Screen</string>
+    <string name="favorite_screen_toolbar_title">Favorites</string>
 
     <string name="voteAverage">%1$s (%2$s)</string>
     <string name="try_again">Try Again</string>

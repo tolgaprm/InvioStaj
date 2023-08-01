@@ -12,6 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prmto.inviostaj.R
 import com.prmto.inviostaj.databinding.FragmentHomeBinding
+import com.prmto.inviostaj.presentation.home.adapter.MoviePagingAdapter
 import com.prmto.inviostaj.util.isErrorWithLoadState
 import com.prmto.inviostaj.util.isLoading
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,6 +46,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    // Collect edilen yerde view ayarlama işlemleri yapılmamalıdır diye bir açıklama var
+    // geliştirme kurallarında.
+    // Bu işlemleri nasıl yapmalıyım? -- Bunun için databinding kullanarak mı yapayım?
     private fun collectHomeUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.state.flowWithLifecycle(lifecycle = lifecycle).collectLatest { homeUiState ->
