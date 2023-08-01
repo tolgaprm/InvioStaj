@@ -24,7 +24,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private var homeBinding: FragmentHomeBinding? = null
     private val viewModel: HomeViewModel by viewModels()
-    private val moviePagingAdapter by lazy { MoviePagingAdapter() }
+    private lateinit var moviePagingAdapter: MoviePagingAdapter
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,6 +64,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun setupRecyclerView() {
+        moviePagingAdapter = MoviePagingAdapter(
+            onToggleFavoriteClicked = { movie ->
+                viewModel.toggleFavoriteMovie(movie = movie)
+            }
+        )
+
         homeBinding?.let {
             with(it.rvHomeMovieList) {
                 adapter = moviePagingAdapter

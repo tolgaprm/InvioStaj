@@ -123,6 +123,7 @@
             tools:text="Action, Adventure, Science, Fiction, Hero," />
 
         <ImageButton
+            android:id="@+id/ibtn_movie_item_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/large_margin"

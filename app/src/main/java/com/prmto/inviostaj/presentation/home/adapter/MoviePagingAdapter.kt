@@ -12,14 +12,18 @@ import com.prmto.inviostaj.data.remote.api.ImageApi
 import com.prmto.inviostaj.databinding.MovieItemBinding
 import com.prmto.inviostaj.domain.model.Movie
 
-class MoviePagingAdapter :
-    PagingDataAdapter<Movie, MoviePagingAdapter.MovieViewHolder>(MovieDiffer()) {
+class MoviePagingAdapter(
+    private val onToggleFavoriteClicked: (Movie) -> Unit
+) : PagingDataAdapter<Movie, MoviePagingAdapter.MovieViewHolder>(MovieDiffer()) {
 
-    class MovieViewHolder(
+    inner class MovieViewHolder(
         private val binding: MovieItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(movie: Movie, context: Context) {
+        fun bind(
+            movie: Movie,
+            context: Context,
+        ) {
             binding.tvMovieItemName.text = movie.originalTitle
             binding.tvMovieItemReleaseDate.text = movie.releaseDate
             binding.tvMovieItemOverview.text = movie.overview
@@ -36,28 +40,34 @@ class MoviePagingAdapter :
             )
             binding.tvMovieItemGenre.text = movie.genresBySeparatedByComma
             binding.tvMovieItemReleaseDate.text = movie.releaseDate
+
+            toggleFavorite(isFavorite = movie.isFavorite)
+
+            binding.ibtnMovieItemFavorite.setOnClickListener {
+                onToggleFavoriteClicked(movie)
+            }
         }
 
-        companion object {
-            fun create(
-                parent: ViewGroup
-            ): MovieViewHolder {
-                val binding =
-                    MovieItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return MovieViewHolder(binding)
-            }
+        private fun toggleFavorite(isFavorite: Boolean) {
+            binding.ibtnMovieItemFavorite.setImageResource(
+                if (isFavorite) R.drawable.ic_favorite_black else R.drawable.ic_favorite_border_black
+            )
         }
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movieItem = getItem(position)
         movieItem?.let { movie ->
-            holder.bind(movie = movie, context = holder.itemView.context)
+            holder.bind(
+                movie = movie,
+                context = holder.itemView.context,
+            )
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder.create(parent)
+        val binding = MovieItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MovieViewHolder(binding)
     }
 }
 
