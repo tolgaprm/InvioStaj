@@ -1,7 +1,7 @@
 package com.prmto.inviostaj.di
 
 import com.prmto.inviostaj.data.remote.RequestInterceptor
-import com.prmto.inviostaj.data.remote.TmdbApi
+import com.prmto.inviostaj.data.remote.api.TmdbApi
 import com.prmto.inviostaj.data.remote.datasource.MovieRemoteDataSource
 import com.prmto.inviostaj.data.remote.datasource.MovieRemoteDataSourceImpl
 import com.prmto.inviostaj.data.repository.MovieRepositoryImpl

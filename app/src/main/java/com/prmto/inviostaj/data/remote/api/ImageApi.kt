@@ -1,4 +1,4 @@
-package com.prmto.inviostaj.data.remote
+package com.prmto.inviostaj.data.remote.api
 
 import com.prmto.inviostaj.util.Constants.IMAGE_BASE_URL
 

@@ -1,4 +1,4 @@
-package com.prmto.inviostaj.data.remote
+package com.prmto.inviostaj.data.remote.api
 
 import com.prmto.inviostaj.data.remote.dto.ApiResponse
 import com.prmto.inviostaj.data.remote.dto.MovieDto

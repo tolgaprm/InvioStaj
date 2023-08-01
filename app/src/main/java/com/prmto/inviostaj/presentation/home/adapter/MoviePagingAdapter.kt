@@ -1,4 +1,4 @@
-package com.prmto.inviostaj.presentation.home
+package com.prmto.inviostaj.presentation.home.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.prmto.inviostaj.R
-import com.prmto.inviostaj.data.remote.ImageApi
+import com.prmto.inviostaj.data.remote.api.ImageApi
 import com.prmto.inviostaj.databinding.MovieItemBinding
 import com.prmto.inviostaj.domain.model.Movie
 
