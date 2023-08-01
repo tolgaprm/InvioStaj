@@ -28,7 +28,7 @@ class MovieRepositoryImpl @Inject constructor(
         return movieRemoteDataSource.getMovieGenreList()
     }
 
-    override fun getFavoriteMovies(): Flow<Movie> {
+    override fun getFavoriteMovies(): Flow<List<Movie>> {
         return movieLocalDataSource.getAllFavoriteMovies()
     }
 

@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface MovieLocalDataSource {
 
-    fun getAllFavoriteMovies(): Flow<Movie>
+    fun getAllFavoriteMovies(): Flow<List<Movie>>
 
     suspend fun insertFavoriteMovie(movie: Movie)
 

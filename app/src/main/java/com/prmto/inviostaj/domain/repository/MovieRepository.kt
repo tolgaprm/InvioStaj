@@ -11,7 +11,7 @@ interface MovieRepository {
 
     suspend fun getMovieGenreList(): GenreList
 
-    fun getFavoriteMovies(): Flow<Movie>
+    fun getFavoriteMovies(): Flow<List<Movie>>
 
     suspend fun insertFavoriteMovie(movie: Movie)
 

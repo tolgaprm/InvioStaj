@@ -11,9 +11,9 @@ import javax.inject.Inject
 class MovieLocalDataSourceImpl @Inject constructor(
     private val movieDao: MovieDao
 ) : MovieLocalDataSource {
-    override fun getAllFavoriteMovies(): Flow<Movie> {
-        return movieDao.getAllFavoriteMovies().map { movieEntity ->
-            movieEntity.toMovie()
+    override fun getAllFavoriteMovies(): Flow<List<Movie>> {
+        return movieDao.getAllFavoriteMovies().map {
+            it.map { movieEntity -> movieEntity.toMovie() }
         }
     }
 

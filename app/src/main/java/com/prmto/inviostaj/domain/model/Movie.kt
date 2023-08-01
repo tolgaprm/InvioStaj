@@ -13,4 +13,5 @@ data class Movie(
     val genresBySeparatedByComma: String = "",
     val voteAverage: Double,
     val voteCountByString: String = "", // Format like 1000 k
+    val isFavorite: Boolean = false
 )
