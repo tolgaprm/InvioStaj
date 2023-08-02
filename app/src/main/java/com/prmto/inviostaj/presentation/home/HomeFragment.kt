@@ -28,7 +28,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.viewModel = viewModel
 
         setupRecyclerViewAndAdapter()
-        addListenerToBtnTryAgain()
         addScrollListener()
     }
 
@@ -44,14 +43,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             override fun isLoading() = viewModel.state.value.isLoading
         })
-    }
-
-    private fun addListenerToBtnTryAgain() {
-        homeBinding?.let { homeBinding ->
-            homeBinding.errorLayout.btnErrorLayoutTryAgain.setOnClickListener {
-                viewModel.fetchMovies()
-            }
-        }
     }
 
     private fun setupRecyclerViewAndAdapter() {
