@@ -1,4 +1,4 @@
-package com.prmto.inviostaj.domain.model
+package com.prmto.inviostaj.data.remote.dto
 
 
 data class Genre(

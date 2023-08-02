@@ -2,8 +2,7 @@ package com.prmto.inviostaj.data.remote.datasource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.prmto.inviostaj.data.mapper.toMovie
-import com.prmto.inviostaj.domain.model.Movie
+import com.prmto.inviostaj.data.remote.dto.Movie
 import javax.inject.Inject
 
 class MoviePagingSource @Inject constructor(
@@ -22,7 +21,7 @@ class MoviePagingSource @Inject constructor(
             val nextKey = if (nextPage < response.totalPages) response.page.plus(1) else null
 
             LoadResult.Page(
-                data = response.results.map { it.toMovie() },
+                data = response.results,
                 prevKey = prevKey,
                 nextKey = nextKey
             )

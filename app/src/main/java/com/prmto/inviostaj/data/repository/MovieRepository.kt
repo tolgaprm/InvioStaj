@@ -1,8 +1,8 @@
-package com.prmto.inviostaj.domain.repository
+package com.prmto.inviostaj.data.repository
 
 import androidx.paging.PagingData
-import com.prmto.inviostaj.domain.model.GenreList
-import com.prmto.inviostaj.domain.model.Movie
+import com.prmto.inviostaj.data.remote.dto.GenreList
+import com.prmto.inviostaj.data.remote.dto.Movie
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {

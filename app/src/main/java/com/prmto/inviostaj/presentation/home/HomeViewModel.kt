@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.prmto.inviostaj.domain.model.Movie
-import com.prmto.inviostaj.domain.repository.MovieRepository
+import com.prmto.inviostaj.data.remote.dto.Movie
+import com.prmto.inviostaj.data.repository.MovieRepository
 import com.prmto.inviostaj.domain.usecase.GetTopRatedMoviePagingDataUseCase
 import com.prmto.inviostaj.domain.usecase.ToggleFavoriteMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     getTopRatedMoviePagingDataUseCase: GetTopRatedMoviePagingDataUseCase,
     private val toggleFavoriteMovieUseCase: ToggleFavoriteMovieUseCase,
-    private val movieRepository: MovieRepository
+    movieRepository: MovieRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeUiState())

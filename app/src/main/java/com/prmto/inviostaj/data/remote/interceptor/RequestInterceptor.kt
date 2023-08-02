@@ -1,4 +1,4 @@
-package com.prmto.inviostaj.data.remote
+package com.prmto.inviostaj.data.remote.interceptor
 
 import com.prmto.inviostaj.BuildConfig
 import okhttp3.Interceptor

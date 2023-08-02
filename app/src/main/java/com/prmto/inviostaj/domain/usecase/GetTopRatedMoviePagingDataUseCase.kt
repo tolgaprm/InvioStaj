@@ -2,8 +2,8 @@ package com.prmto.inviostaj.domain.usecase
 
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.prmto.inviostaj.domain.model.Movie
-import com.prmto.inviostaj.domain.repository.MovieRepository
+import com.prmto.inviostaj.data.remote.dto.Movie
+import com.prmto.inviostaj.data.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

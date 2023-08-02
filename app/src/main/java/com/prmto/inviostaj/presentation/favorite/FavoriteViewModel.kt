@@ -2,8 +2,8 @@ package com.prmto.inviostaj.presentation.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.prmto.inviostaj.domain.model.Movie
-import com.prmto.inviostaj.domain.repository.MovieRepository
+import com.prmto.inviostaj.data.remote.dto.Movie
+import com.prmto.inviostaj.data.repository.MovieRepository
 import com.prmto.inviostaj.domain.usecase.ToggleFavoriteMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

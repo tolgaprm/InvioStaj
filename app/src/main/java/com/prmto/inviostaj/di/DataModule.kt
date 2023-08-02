@@ -5,12 +5,12 @@ import androidx.room.Room
 import com.prmto.inviostaj.data.local.InvioDatabase
 import com.prmto.inviostaj.data.local.datasource.MovieLocalDataSource
 import com.prmto.inviostaj.data.local.datasource.MovieLocalDataSourceImpl
-import com.prmto.inviostaj.data.remote.RequestInterceptor
 import com.prmto.inviostaj.data.remote.api.TmdbApi
 import com.prmto.inviostaj.data.remote.datasource.MovieRemoteDataSource
 import com.prmto.inviostaj.data.remote.datasource.MovieRemoteDataSourceImpl
+import com.prmto.inviostaj.data.remote.interceptor.RequestInterceptor
+import com.prmto.inviostaj.data.repository.MovieRepository
 import com.prmto.inviostaj.data.repository.MovieRepositoryImpl
-import com.prmto.inviostaj.domain.repository.MovieRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module

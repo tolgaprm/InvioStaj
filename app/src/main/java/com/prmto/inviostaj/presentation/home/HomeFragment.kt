@@ -2,11 +2,9 @@ package com.prmto.inviostaj.presentation.home
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,10 +30,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val binding = FragmentHomeBinding.bind(view)
         homeBinding = binding
 
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+
         setupRecyclerViewAndAdapter()
         addLoadStateListener()
         collectTopRatedMovies()
-        collectHomeUiState()
         addListenerToBtnTryAgain()
     }
 
@@ -47,25 +47,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    // Collect edilen yerde view ayarlama işlemleri yapılmamalıdır diye bir açıklama var
-    // geliştirme kurallarında.
-    // Bu işlemleri nasıl yapmalıyım? -- Bunun için databinding kullanarak mı yapayım?
-    private fun collectHomeUiState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.state.flowWithLifecycle(lifecycle = lifecycle).collectLatest { homeUiState ->
-                homeBinding?.let { homeBinding ->
-                    homeBinding.progressBar.isVisible = homeUiState.isLoading
-                    homeBinding.rvHomeMovieList.isVisible = !homeUiState.isLoading
-                    homeBinding.rvHomeMovieList.isVisible = homeUiState.isError
-                    homeBinding.errorLayout.root.isVisible = !homeUiState.isError
-                }
-            }
-        }
-    }
-
     private fun setupRecyclerViewAndAdapter() {
         moviePagingAdapter = MoviePagingAdapter(
-            onToggleFavoriteClicked = { movie ->
+            onToggleFavoriteClick = { movie ->
                 viewModel.toggleFavoriteMovie(movie = movie)
             }
         )

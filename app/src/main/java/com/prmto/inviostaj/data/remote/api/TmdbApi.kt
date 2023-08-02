@@ -1,8 +1,8 @@
 package com.prmto.inviostaj.data.remote.api
 
 import com.prmto.inviostaj.data.remote.dto.ApiResponse
-import com.prmto.inviostaj.data.remote.dto.MovieDto
-import com.prmto.inviostaj.domain.model.GenreList
+import com.prmto.inviostaj.data.remote.dto.GenreList
+import com.prmto.inviostaj.data.remote.dto.Movie
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,7 +10,7 @@ interface TmdbApi {
     @GET("movie/top_rated")
     suspend fun getTopRatedMovies(
         @Query("page") page: Int
-    ): ApiResponse<MovieDto>
+    ): ApiResponse<Movie>
 
     @GET("genre/movie/list")
     suspend fun getMovieGenreList(): GenreList

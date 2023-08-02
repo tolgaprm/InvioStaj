@@ -1,6 +1,6 @@
 package com.prmto.inviostaj.domain.usecase
 
-import com.prmto.inviostaj.domain.model.Genre
+import com.prmto.inviostaj.data.remote.dto.Genre
 
 class ConvertGenreListToSeparatedByCommaUseCase {
 

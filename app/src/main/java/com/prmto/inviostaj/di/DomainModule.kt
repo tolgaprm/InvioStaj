@@ -1,6 +1,6 @@
 package com.prmto.inviostaj.di
 
-import com.prmto.inviostaj.domain.repository.MovieRepository
+import com.prmto.inviostaj.data.repository.MovieRepository
 import com.prmto.inviostaj.domain.usecase.ConvertDateFormatUseCase
 import com.prmto.inviostaj.domain.usecase.ConvertGenreListToSeparatedByCommaUseCase
 import com.prmto.inviostaj.domain.usecase.ConvertVoteCountToKFormatUseCase

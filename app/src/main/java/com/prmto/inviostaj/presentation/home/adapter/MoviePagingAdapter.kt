@@ -3,29 +3,33 @@ package com.prmto.inviostaj.presentation.home.adapter
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.prmto.inviostaj.domain.model.Movie
+import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.presentation.viewHolder.MovieViewHolder
+import com.prmto.inviostaj.presentation.viewHolder.listener.MovieItemClickListener
 
 class MoviePagingAdapter(
-    private val onToggleFavoriteClicked: (Movie) -> Unit
-) : PagingDataAdapter<Movie, MovieViewHolder>(MovieDiffer()) {
+    private val onToggleFavoriteClick: (Movie) -> Unit
+) : PagingDataAdapter<Movie, MovieViewHolder>(MovieDiffer()), MovieItemClickListener {
 
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movieItem = getItem(position)
+        holder.binding.toggleFavoriteClickListener = this
         movieItem?.let { movie ->
             holder.bind(
-                movie = movie,
-                context = holder.itemView.context,
+                movie = movie
             )
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder.create(
-            parent = parent,
-            onToggleFavoriteClicked = onToggleFavoriteClicked
+            parent = parent
         )
+    }
+
+    override fun onToggleFavoriteClicked(movie: Movie) {
+        onToggleFavoriteClick(movie)
     }
 }
 

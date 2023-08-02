@@ -1,6 +1,6 @@
 package com.prmto.inviostaj.data.local.datasource
 
-import com.prmto.inviostaj.domain.model.Movie
+import com.prmto.inviostaj.data.remote.dto.Movie
 import kotlinx.coroutines.flow.Flow
 
 interface MovieLocalDataSource {

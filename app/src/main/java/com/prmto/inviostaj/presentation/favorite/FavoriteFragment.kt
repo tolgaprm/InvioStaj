@@ -2,19 +2,13 @@ package com.prmto.inviostaj.presentation.favorite
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prmto.inviostaj.R
 import com.prmto.inviostaj.databinding.FragmentFavoriteBinding
 import com.prmto.inviostaj.presentation.favorite.adapter.MovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
@@ -29,21 +23,15 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentFavoriteBinding.bind(view)
         favoriteBinding = binding
-
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
         setupRecyclerViewAndAdapter()
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.favoriteUiState.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-                .collectLatest { favoriteUiState ->
-                    movieAdapter.submitList(favoriteUiState.favoriteMovies)
-                    binding.progressBar.isVisible = favoriteUiState.isLoading
-                }
-        }
     }
 
     private fun setupRecyclerViewAndAdapter() {
         movieAdapter = MovieAdapter(
-            onToggleFavoriteClicked = {
+            onToggleFavoriteClick = {
                 viewModel.toggleFavoriteMovie(it)
             }
         )

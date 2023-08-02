@@ -1,7 +1,7 @@
 package com.prmto.inviostaj.domain.usecase
 
-import com.prmto.inviostaj.domain.model.Movie
-import com.prmto.inviostaj.domain.repository.MovieRepository
+import com.prmto.inviostaj.data.remote.dto.Movie
+import com.prmto.inviostaj.data.repository.MovieRepository
 import javax.inject.Inject
 
 class ToggleFavoriteMovieUseCase @Inject constructor(
@@ -9,9 +9,9 @@ class ToggleFavoriteMovieUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(movie: Movie) {
         if (movie.isFavorite) {
-            movieRepository.deleteFavoriteMovie(movie)
+            movieRepository.deleteFavoriteMovie(movie.copy(isFavorite = false))
         } else {
-            movieRepository.insertFavoriteMovie(movie)
+            movieRepository.insertFavoriteMovie(movie.copy(isFavorite = true))
         }
     }
 }
