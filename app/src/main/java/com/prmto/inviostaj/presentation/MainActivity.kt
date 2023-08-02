@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.toolbar.setupWithNavController(navController, appBarConfigure)
 
-        binding.bottomNavigationView.setupWithNavController(navController)
+        binding.bottomNavigationView?.setupWithNavController(navController)
+
+        binding.navigationRailView?.setupWithNavController(navController)
     }
 }
