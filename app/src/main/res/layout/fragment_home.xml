@@ -21,11 +21,12 @@
             android:id="@+id/rv_home_movie_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:isVisible="@{!viewModel.state.loading || viewModel.state.error}"
+            app:isVisible="@{!viewModel.state.error}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:submitMovieList="@{viewModel.state.movies}"
             tools:listitem="@layout/movie_item" />
 
         <ProgressBar
@@ -47,8 +48,8 @@
             layout="@layout/error_layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:isVisible="@{viewModel.state.error}"
             android:visibility="gone"
-            app:isVisible="@{!viewModel.state.error}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

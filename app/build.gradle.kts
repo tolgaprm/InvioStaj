@@ -93,6 +93,4 @@ dependencies {
     // Coil
     implementation(libs.coil)
 
-    //Paging Library
-    implementation(libs.paging.runtime.ktx)
 }

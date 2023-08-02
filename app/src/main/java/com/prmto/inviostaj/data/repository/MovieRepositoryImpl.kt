@@ -1,26 +1,19 @@
 package com.prmto.inviostaj.data.repository
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import com.prmto.inviostaj.data.local.datasource.MovieLocalDataSource
-import com.prmto.inviostaj.data.remote.datasource.MoviePagingSource
 import com.prmto.inviostaj.data.remote.datasource.MovieRemoteDataSource
 import com.prmto.inviostaj.data.remote.dto.GenreList
 import com.prmto.inviostaj.data.remote.dto.Movie
-import com.prmto.inviostaj.util.Constants.PAGE_SIZE
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
     private val movieRemoteDataSource: MovieRemoteDataSource,
     private val movieLocalDataSource: MovieLocalDataSource
 ) : MovieRepository {
-    override fun getTopRatedMovies(): Flow<PagingData<Movie>> {
-        return Pager(
-            config = PagingConfig(pageSize = PAGE_SIZE),
-            pagingSourceFactory = { MoviePagingSource(movieRemoteDataSource) }
-        ).flow
+    override fun getTopRatedMovies(page: Int): Flow<List<Movie>> {
+        return flow { emit(movieRemoteDataSource.getTopRatedMovies(page).results) }
     }
 
     override suspend fun getMovieGenreList(): GenreList {

@@ -4,25 +4,19 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prmto.inviostaj.R
 import com.prmto.inviostaj.databinding.FragmentHomeBinding
-import com.prmto.inviostaj.presentation.home.adapter.MoviePagingAdapter
-import com.prmto.inviostaj.util.isErrorWithLoadState
-import com.prmto.inviostaj.util.isLoading
+import com.prmto.inviostaj.presentation.favorite.adapter.MovieAdapter
+import com.prmto.inviostaj.presentation.home.adapter.PaginationScrollListener
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private var homeBinding: FragmentHomeBinding? = null
     private val viewModel: HomeViewModel by viewModels()
-    private lateinit var moviePagingAdapter: MoviePagingAdapter
+    private lateinit var movieAdapter: MovieAdapter
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,21 +28,34 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.viewModel = viewModel
 
         setupRecyclerViewAndAdapter()
-        addLoadStateListener()
-        collectTopRatedMovies()
         addListenerToBtnTryAgain()
+        addScrollListener()
+    }
+
+    private fun addScrollListener() {
+        val recyclerView = homeBinding?.rvHomeMovieList ?: return
+        recyclerView.addOnScrollListener(object :
+            PaginationScrollListener(recyclerView.layoutManager as LinearLayoutManager) {
+            override fun loadMoreItems() {
+                viewModel.fetchMovies()
+            }
+
+            override fun isLastPage() = viewModel.state.value.isLastPage
+
+            override fun isLoading() = viewModel.state.value.isLoading
+        })
     }
 
     private fun addListenerToBtnTryAgain() {
         homeBinding?.let { homeBinding ->
             homeBinding.errorLayout.btnErrorLayoutTryAgain.setOnClickListener {
-                moviePagingAdapter.retry()
+                viewModel.fetchMovies()
             }
         }
     }
 
     private fun setupRecyclerViewAndAdapter() {
-        moviePagingAdapter = MoviePagingAdapter(
+        movieAdapter = MovieAdapter(
             onToggleFavoriteClick = { movie ->
                 viewModel.toggleFavoriteMovie(movie = movie)
             }
@@ -56,29 +63,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         homeBinding?.let {
             with(it.rvHomeMovieList) {
-                adapter = moviePagingAdapter
+                adapter = movieAdapter
                 layoutManager = LinearLayoutManager(requireContext())
             }
-        }
-    }
-
-    private fun collectTopRatedMovies() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.topRatedMoviesPagingData.collectLatest { moviePagingData ->
-                    moviePagingAdapter.submitData(moviePagingData)
-                }
-            }
-        }
-    }
-
-    private fun addLoadStateListener() {
-        moviePagingAdapter.addLoadStateListener { combinedLoadStates ->
-            val isError = combinedLoadStates.isErrorWithLoadState()?.let {
-                false
-            } ?: true
-            viewModel.updateErrorState(isError = isError)
-            viewModel.updateLoadingState(isLoading = combinedLoadStates.isLoading())
         }
     }
 

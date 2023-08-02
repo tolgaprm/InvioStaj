@@ -14,7 +14,6 @@ hilt_complier_version = '1.0.0'
 nav_version = '2.5.0'
 coroutines_version = '1.7.1'
 room_version = "2.4.0"
-paging_version = '3.1.1'
 coil_version = "1.4.0"
 moshi_version = '1.12.0'
 retrofit_coroutines_adapter_version = '0.9.2'
@@ -51,10 +50,6 @@ coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutin
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version" }
-
-
-# Paging Library
-paging-runtime-ktx = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "paging_version" }
 
 # Coil
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil_version" }

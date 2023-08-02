@@ -1,9 +1,9 @@
 package com.prmto.inviostaj.presentation.favorite.adapter
 
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.prmto.inviostaj.data.remote.dto.Movie
-import com.prmto.inviostaj.presentation.home.adapter.MovieDiffer
 import com.prmto.inviostaj.presentation.viewHolder.MovieViewHolder
 import com.prmto.inviostaj.presentation.viewHolder.listener.MovieItemClickListener
 
@@ -28,5 +28,15 @@ class MovieAdapter(
 
     override fun onToggleFavoriteClicked(movie: Movie) {
         onToggleFavoriteClick(movie)
+    }
+}
+
+class MovieDiffer : DiffUtil.ItemCallback<Movie>() {
+    override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem == newItem
     }
 }
