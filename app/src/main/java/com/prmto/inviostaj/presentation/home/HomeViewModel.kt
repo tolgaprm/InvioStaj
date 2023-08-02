@@ -1,5 +1,6 @@
 package com.prmto.inviostaj.presentation.home
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.prmto.inviostaj.data.remote.dto.Movie
@@ -55,7 +56,7 @@ class HomeViewModel @Inject constructor(
 
                         addNewMovies(movies = resource.data ?: emptyList())
 
-                        updateIsFavoriteMovie(state.value.movies)
+                        updateIsFavoriteMovie()
                     }
 
                     is Resource.Error -> {
@@ -71,7 +72,8 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun updateIsLastPage(isLastPage: Boolean) {
+    @VisibleForTesting
+    fun updateIsLastPage(isLastPage: Boolean) {
         _homeUiState.update {
             it.copy(
                 isLastPage = isLastPage
@@ -79,7 +81,8 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun addNewMovies(movies: List<Movie>) {
+    @VisibleForTesting
+    fun addNewMovies(movies: List<Movie>) {
         _homeUiState.update {
             it.copy(
                 isLoading = false,
@@ -95,12 +98,13 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun updateIsFavoriteMovie(movie: List<Movie>) {
+    @VisibleForTesting
+    fun updateIsFavoriteMovie() {
         viewModelScope.launch {
             favoriteMovies.collectLatest { favoriteMovies ->
                 _homeUiState.update {
                     it.copy(
-                        movies = movie.map { movieItem ->
+                        movies = state.value.movies.map { movieItem ->
                             movieItem.copy(
                                 isFavorite = favoriteMovies.any { favoriteMovie ->
                                     favoriteMovie.id == movieItem.id

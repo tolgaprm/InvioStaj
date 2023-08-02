@@ -55,9 +55,6 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
 
     //dagger - hilt
     implementation(libs.dagger.hilt)
@@ -92,5 +89,31 @@ dependencies {
 
     // Coil
     implementation(libs.coil)
+
+    // Local Unit Tests
+    testImplementation(libs.junit)
+    implementation(libs.test.core)
+    testImplementation(libs.hamcrest)
+    testImplementation(libs.core.testing)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.truth)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockk)
+    testImplementation(libs.mockWebServer)
+    // Flow Testing
+    testImplementation(libs.turbine)
+
+    androidTestImplementation(libs.hilt.testing)
+    kaptAndroidTest(libs.dagger.hilt.compiler)
+
+    // Instrumented Unit Tests
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.core.testing)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.mockito.core)
+    androidTestImplementation(libs.mockito.android)
 
 }

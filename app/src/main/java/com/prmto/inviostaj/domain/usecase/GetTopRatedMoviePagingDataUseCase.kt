@@ -14,7 +14,6 @@ class GetTopRatedMoviePagingDataUseCase @Inject constructor(
     private val convertDateFormatUseCase: ConvertDateFormatUseCase
 ) {
     suspend operator fun invoke(page: Int): Flow<Resource<List<Movie>>> {
-
         return flow {
             try {
                 emit(Resource.Loading())

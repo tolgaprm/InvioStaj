@@ -12,7 +12,7 @@ class MovieRepositoryImpl @Inject constructor(
     private val movieLocalDataSource: MovieLocalDataSource
 ) : MovieRepository {
     override suspend fun getTopRatedMovies(page: Int): List<Movie> {
-        return movieRemoteDataSource.getTopRatedMovies(page).results
+        return movieRemoteDataSource.getTopRatedMovies(page = page).results
     }
 
     override suspend fun getMovieGenreList(): GenreList {
