@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.prmto.inviostaj.R
 import com.prmto.inviostaj.data.remote.dto.Movie
-import com.prmto.inviostaj.presentation.favorite.adapter.MovieAdapter
+import com.prmto.inviostaj.presentation.adapter.MovieAdapter
 import com.prmto.inviostaj.util.Constants.IMAGE_BASE_URL
 import com.prmto.inviostaj.util.ImageSize
 

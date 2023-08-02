@@ -1,4 +1,4 @@
-package com.prmto.inviostaj.presentation.viewHolder
+package com.prmto.inviostaj.presentation.adapter.viewHolder
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prmto.inviostaj.R
 import com.prmto.inviostaj.databinding.FragmentFavoriteBinding
-import com.prmto.inviostaj.presentation.favorite.adapter.MovieAdapter
+import com.prmto.inviostaj.presentation.adapter.MovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

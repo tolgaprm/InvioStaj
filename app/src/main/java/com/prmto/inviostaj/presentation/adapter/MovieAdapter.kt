@@ -1,11 +1,11 @@
-package com.prmto.inviostaj.presentation.favorite.adapter
+package com.prmto.inviostaj.presentation.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.prmto.inviostaj.data.remote.dto.Movie
-import com.prmto.inviostaj.presentation.viewHolder.MovieViewHolder
-import com.prmto.inviostaj.presentation.viewHolder.listener.MovieItemClickListener
+import com.prmto.inviostaj.presentation.adapter.viewHolder.MovieViewHolder
+import com.prmto.inviostaj.presentation.adapter.viewHolder.listener.MovieItemClickListener
 
 class MovieAdapter(
     private val onToggleFavoriteClick: (Movie) -> Unit

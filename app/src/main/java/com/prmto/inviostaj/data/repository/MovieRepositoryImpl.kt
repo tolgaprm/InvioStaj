@@ -5,15 +5,14 @@ import com.prmto.inviostaj.data.remote.datasource.MovieRemoteDataSource
 import com.prmto.inviostaj.data.remote.dto.GenreList
 import com.prmto.inviostaj.data.remote.dto.Movie
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
     private val movieRemoteDataSource: MovieRemoteDataSource,
     private val movieLocalDataSource: MovieLocalDataSource
 ) : MovieRepository {
-    override fun getTopRatedMovies(page: Int): Flow<List<Movie>> {
-        return flow { emit(movieRemoteDataSource.getTopRatedMovies(page).results) }
+    override suspend fun getTopRatedMovies(page: Int): List<Movie> {
+        return movieRemoteDataSource.getTopRatedMovies(page).results
     }
 
     override suspend fun getMovieGenreList(): GenreList {

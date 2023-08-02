@@ -1,4 +1,4 @@
-package com.prmto.inviostaj.presentation.home.adapter
+package com.prmto.inviostaj.presentation.adapter
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

@@ -11,7 +11,7 @@
 
         <variable
             name="toggleFavoriteClickListener"
-            type="com.prmto.inviostaj.presentation.viewHolder.listener.MovieItemClickListener" />
+            type="com.prmto.inviostaj.presentation.adapter.viewHolder.listener.MovieItemClickListener" />
 
     </data>
 

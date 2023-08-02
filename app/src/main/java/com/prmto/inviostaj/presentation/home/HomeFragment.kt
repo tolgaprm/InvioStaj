@@ -7,8 +7,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prmto.inviostaj.R
 import com.prmto.inviostaj.databinding.FragmentHomeBinding
-import com.prmto.inviostaj.presentation.favorite.adapter.MovieAdapter
-import com.prmto.inviostaj.presentation.home.adapter.PaginationScrollListener
+import com.prmto.inviostaj.presentation.adapter.MovieAdapter
+import com.prmto.inviostaj.presentation.adapter.PaginationScrollListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

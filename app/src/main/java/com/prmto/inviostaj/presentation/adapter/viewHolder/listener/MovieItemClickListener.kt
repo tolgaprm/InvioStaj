@@ -1,4 +1,4 @@
-package com.prmto.inviostaj.presentation.viewHolder.listener
+package com.prmto.inviostaj.presentation.adapter.viewHolder.listener
 
 import com.prmto.inviostaj.data.remote.dto.Movie
 

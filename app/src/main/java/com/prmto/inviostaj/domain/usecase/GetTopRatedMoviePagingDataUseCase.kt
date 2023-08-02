@@ -4,8 +4,6 @@ import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.data.repository.MovieRepository
 import com.prmto.inviostaj.util.Resource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -20,11 +18,8 @@ class GetTopRatedMoviePagingDataUseCase @Inject constructor(
         return flow {
             try {
                 emit(Resource.Loading())
-                val resource = combine(
-                    repository.getTopRatedMovies(page = page),
-                    repository.getFavoriteMovies()
-                ) { movies, favoriteMovies ->
-                    movies.map { movie ->
+                val resource =
+                    repository.getTopRatedMovies(page = page).map { movie ->
                         movie.copy(
                             genresBySeparatedByComma = convertGenreListToSeparatedByCommaUseCase(
                                 genreIds = movie.genreIds,
@@ -32,11 +27,10 @@ class GetTopRatedMoviePagingDataUseCase @Inject constructor(
                             ),
                             voteCountByString = convertVoteCountToKFormatUseCase(voteCount = movie.voteCount),
                             releaseDate = convertDateFormatUseCase(inputDate = movie.releaseDate),
-                            isFavorite = favoriteMovies.any { it.id == movie.id }
                         )
                     }
-                }
-                emit(Resource.Success(data = resource.first()))
+
+                emit(Resource.Success(data = resource))
             } catch (e: Exception) {
                 emit(Resource.Error(e.localizedMessage ?: ""))
             }
