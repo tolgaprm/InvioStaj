@@ -18,7 +18,6 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_favorite_movie"
-            submitMovieList="@{viewModel.favoriteUiState.favoriteMovies}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
