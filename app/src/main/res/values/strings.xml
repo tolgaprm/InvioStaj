@@ -17,4 +17,6 @@
     <string name="overview">Overview</string>
 
     <string name="runtime">%1$sh %2$sm</string>
+    <string name="imdb_icon_description">IMDB Icon</string>
+    <string name="the_imdbid_is_not_exists">"The ImdbId is not exists "</string>
 </resources>

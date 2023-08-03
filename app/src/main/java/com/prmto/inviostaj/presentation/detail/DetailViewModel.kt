@@ -1,6 +1,5 @@
 package com.prmto.inviostaj.presentation.detail
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,7 +22,6 @@ class DetailViewModel @Inject constructor(
 
     init {
         savedStateHandle.get<Int>("movieId")?.let { movieId ->
-            Log.d("DetailViewModel", movieId.toString())
             getMovieDetail(movieId = movieId)
         }
     }
@@ -41,7 +39,6 @@ class DetailViewModel @Inject constructor(
                         movieDetail = movieDetail,
                     )
                 }
-                Log.d("DetailViewModel", movieDetail.toString())
             }.onFailure {
                 _detailUiState.update {
                     it.copy(

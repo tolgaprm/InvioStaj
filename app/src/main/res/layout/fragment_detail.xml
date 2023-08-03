@@ -12,6 +12,9 @@
             name="viewModel"
             type="com.prmto.inviostaj.presentation.detail.DetailViewModel" />
 
+        <variable
+            name="imdbClickListener"
+            type="com.prmto.inviostaj.presentation.detail.ImdbIconClickListener" />
     </data>
 
     <ScrollView
@@ -51,6 +54,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imv_detail_poster_path"
                 tools:text="The Godfather" />
+
+            <ImageView
+                android:id="@+id/imv_detail_imdb_icon"
+                android:layout_width="@dimen/normal_icon_size"
+                android:layout_height="@dimen/normal_icon_size"
+                android:layout_marginEnd="@dimen/large_margin"
+                android:contentDescription="@string/imdb_icon_description"
+                android:onClick="@{()->imdbClickListener.onImdbIconClick(viewModel.detailUiState.movieDetail.imdbId)}"
+                android:padding="@dimen/small_padding"
+                android:src="@drawable/ic_imdb_imdb_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_detail_title" />
 
             <RatingBar
                 android:id="@+id/rb_detail_rating"
