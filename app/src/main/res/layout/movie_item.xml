@@ -10,7 +10,7 @@
             type="com.prmto.inviostaj.data.remote.dto.Movie" />
 
         <variable
-            name="toggleFavoriteClickListener"
+            name="movieItemClickListener"
             type="com.prmto.inviostaj.presentation.adapter.viewHolder.listener.MovieItemClickListener" />
 
     </data>
@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/large_margin"
+        android:onClick="@{()->movieItemClickListener.onMovieClicked(movieItem.id)}"
         android:background="?attr/colorOnSurface"
         app:cardCornerRadius="@dimen/movie_item_radius"
         app:cardElevation="16dp">
@@ -152,7 +153,7 @@
                 android:layout_marginEnd="@dimen/large_margin"
                 android:backgroundTint="?colorSurface"
                 android:contentDescription="@{movieItem.favorite ?@string/removeFromFavorite :@string/addToFavorite}"
-                android:onClick="@{()-> toggleFavoriteClickListener.onToggleFavoriteClicked(movieItem)}"
+                android:onClick="@{()-> movieItemClickListener.onToggleFavoriteClicked(movieItem)}"
                 android:src="@{movieItem.favorite ?@drawable/ic_favorite_black :@drawable/ic_favorite_border_black}"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_movie_item_vote_average"
                 app:layout_constraintEnd_toEndOf="parent"

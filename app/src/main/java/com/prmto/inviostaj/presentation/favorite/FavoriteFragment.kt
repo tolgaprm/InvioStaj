@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prmto.inviostaj.R
 import com.prmto.inviostaj.databinding.FragmentFavoriteBinding
@@ -48,6 +49,11 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
         movieAdapter = MovieAdapter(
             onToggleFavoriteClick = {
                 viewModel.toggleFavoriteMovie(it)
+            },
+            onMovieClick = { movieId ->
+                val action =
+                    FavoriteFragmentDirections.actionFavoriteFragmentToDetailFragment(movieId)
+                findNavController().navigate(action)
             }
         )
         favoriteBinding?.let {

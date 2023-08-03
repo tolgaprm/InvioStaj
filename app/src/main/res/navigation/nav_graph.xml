@@ -9,20 +9,46 @@
         android:id="@+id/homeFragment"
         android:name="com.prmto.inviostaj.presentation.home.HomeFragment"
         android:label="@string/home_screen_toolbar_title"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/exploreFragment"
         android:name="com.prmto.inviostaj.presentation.explore.ExploreFragment"
         android:label="@string/explore_screen_toolbar_title"
-        tools:layout="@layout/fragment_explore" />
+        tools:layout="@layout/fragment_explore">
+        <action
+            android:id="@+id/action_exploreFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/slide_out_right" />/>
+    </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.prmto.inviostaj.presentation.detail.DetailFragment"
-        android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        android:label="@string/movie_detail_toolbar_title"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.prmto.inviostaj.presentation.favorite.FavoriteFragment"
         android:label="@string/favorite_screen_toolbar_title"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite">
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/slide_out_right" />/>
+    </fragment>
 </navigation>

@@ -1,17 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <data>
+
+        <import type="com.prmto.inviostaj.util.ImageSize" />
+
+
+        <variable
+            name="viewModel"
+            type="com.prmto.inviostaj.presentation.detail.DetailViewModel" />
+
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.detail.DetailFragment">
+        android:paddingBottom="@dimen/large_padding">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Detail Fragment" />
+            android:layout_height="wrap_content"
+            tools:context=".presentation.detail.DetailFragment">
 
-    </FrameLayout>
+
+            <ImageView
+                android:id="@+id/imv_detail_poster_path"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/detail_movie_poster_height"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{viewModel.detailUiState.movieDetail.posterPath}"
+                app:layout_constraintDimensionRatio=""
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/tv_detail_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginTop="@dimen/large_margin"
+                android:text="@{viewModel.detailUiState.movieDetail.originalTitle}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textColor="?colorOnBackground"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imv_detail_poster_path"
+                tools:text="The Godfather" />
+
+            <RatingBar
+                android:id="@+id/rb_detail_rating"
+                style="@style/Widget.Invio.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:rating="@{viewModel.detailUiState.movieDetail.ratingBarValue}"
+                app:layout_constraintStart_toStartOf="@+id/tv_detail_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_detail_title"
+                tools:rating="8.71" />
+
+            <TextView
+                android:id="@+id/tv_detail_vote_average_and_vote_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:text="@{@string/voteAverage(String.valueOf(viewModel.detailUiState.movieDetail.voteAverage),viewModel.detailUiState.movieDetail.voteCountByString)}"
+                app:layout_constraintBottom_toBottomOf="@+id/rb_detail_rating"
+                app:layout_constraintStart_toEndOf="@+id/rb_detail_rating"
+                app:layout_constraintTop_toTopOf="@+id/rb_detail_rating"
+                tools:text="8.7 (18 k reviews)" />
+
+            <TextView
+                android:id="@+id/tv_detail_genres"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_margin"
+                android:text="@{viewModel.detailUiState.movieDetail.genresBySeparatedByComma}"
+                android:textSize="@dimen/default_text_size"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/rb_detail_rating"
+                app:layout_constraintTop_toBottomOf="@+id/rb_detail_rating"
+                tools:text="Drama, Crime" />
+
+            <TextView
+                android:id="@+id/tv_detail_release_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_margin"
+                android:text="@{viewModel.detailUiState.movieDetail.releaseDate}"
+                android:textSize="@dimen/default_text_size"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/rb_detail_rating"
+                app:layout_constraintTop_toBottomOf="@+id/tv_detail_genres"
+                tools:text="14 March, 1972" />
+
+            <ImageView
+                android:id="@+id/imv_detail_clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_margin"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_clock_white"
+                app:layout_constraintStart_toStartOf="@+id/tv_detail_release_date"
+                app:layout_constraintTop_toBottomOf="@+id/tv_detail_release_date"
+                app:tint="?colorPrimaryVariant" />
+
+            <TextView
+                android:id="@+id/tv_detail_runtime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:text="@{@string/runtime(viewModel.detailUiState.movieDetail.convertedRuntime[`hour`],viewModel.detailUiState.movieDetail.convertedRuntime[`minutes`])}"
+                android:textColor="?colorPrimaryVariant"
+                android:textSize="@dimen/default_text_size"
+                app:layout_constraintBottom_toBottomOf="@+id/imv_detail_clock"
+                app:layout_constraintStart_toEndOf="@+id/imv_detail_clock"
+                app:layout_constraintTop_toTopOf="@+id/imv_detail_clock"
+                tools:text="3h15m" />
+
+            <TextView
+                android:id="@+id/tv_detail_overview_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_margin"
+                android:text="@string/overview"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textColor="?colorOnBackground"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/imv_detail_clock"
+                app:layout_constraintTop_toBottomOf="@+id/tv_detail_runtime" />
+
+            <TextView
+                android:id="@+id/tv_detail_overview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/large_padding"
+                android:paddingVertical="@dimen/medium_padding"
+                android:text="@{viewModel.detailUiState.movieDetail.overview}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_detail_overview_title"
+                tools:text="Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family. When organized crime family patriarch, Vito Corleone barely survives an attempt on his life, his youngest son, Michael steps in to take care of the would-be killers, launching a campaign of bloody revenge." />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="?colorPrimary"
+                app:isVisible="@{viewModel.detailUiState.loading}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 
 </layout>

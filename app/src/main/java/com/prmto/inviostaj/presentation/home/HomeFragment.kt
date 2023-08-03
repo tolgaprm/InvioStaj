@@ -1,12 +1,14 @@
 package com.prmto.inviostaj.presentation.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prmto.inviostaj.R
 import com.prmto.inviostaj.databinding.FragmentHomeBinding
@@ -65,6 +67,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         movieAdapter = MovieAdapter(
             onToggleFavoriteClick = { movie ->
                 viewModel.toggleFavoriteMovie(movie = movie)
+            },
+            onMovieClick = { movieId ->
+                Log.d("Invio", movieId.toString())
+                val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(movieId)
+                findNavController().navigate(action)
             }
         )
 

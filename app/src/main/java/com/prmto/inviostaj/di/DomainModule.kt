@@ -1,9 +1,12 @@
 package com.prmto.inviostaj.di
 
 import com.prmto.inviostaj.data.repository.MovieRepository
+import com.prmto.inviostaj.domain.usecase.CalculateRatingBarValueUseCase
 import com.prmto.inviostaj.domain.usecase.ConvertDateFormatUseCase
 import com.prmto.inviostaj.domain.usecase.ConvertGenreListToSeparatedByCommaUseCase
+import com.prmto.inviostaj.domain.usecase.ConvertRuntimeAsHourAndMinutesUseCase
 import com.prmto.inviostaj.domain.usecase.ConvertVoteCountToKFormatUseCase
+import com.prmto.inviostaj.domain.usecase.GetMovieDetailUseCase
 import com.prmto.inviostaj.domain.usecase.GetTopRatedMoviePagingDataUseCase
 import dagger.Module
 import dagger.Provides
@@ -26,6 +29,20 @@ object DomainModule {
             convertVoteCountToKFormatUseCase = ConvertVoteCountToKFormatUseCase(),
             convertGenreListToSeparatedByCommaUseCase = ConvertGenreListToSeparatedByCommaUseCase(),
             convertDateFormatUseCase = ConvertDateFormatUseCase()
+        )
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetMovieDetailUseCase(
+        repository: MovieRepository
+    ): GetMovieDetailUseCase {
+        return GetMovieDetailUseCase(
+            movieRepository = repository,
+            convertVoteCountToKFormatUseCase = ConvertVoteCountToKFormatUseCase(),
+            convertDateFormatUseCase = ConvertDateFormatUseCase(),
+            calculateRatingBarValueUseCase = CalculateRatingBarValueUseCase(),
+            convertRuntimeAsHourAndMinutesUseCase = ConvertRuntimeAsHourAndMinutesUseCase()
         )
     }
 }

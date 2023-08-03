@@ -17,6 +17,6 @@ data class Movie(
     @Json(name = "vote_count") val voteCount: Int,
     @Json(name = "vote_average") val voteAverage: Double,
     val genresBySeparatedByComma: String = "",
-    val voteCountByString: String = "",
+    val voteCountByString: String = "", // Format like 1000 -> 1K, 18000 -> 18K
     val isFavorite: Boolean = false
 )

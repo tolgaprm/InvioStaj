@@ -6,4 +6,10 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20sp</item>
     </style>
+
+    <style name="Widget.Invio.RatingBar.Small" parent="android:style/Widget.Material.RatingBar.Small">
+        <item name="android:stepSize">0.5</item>
+        <item name="android:progressBarPadding">@dimen/small_padding</item>
+        <item name="android:progressTint">@color/yellow</item>
+    </style>
 </resources>
