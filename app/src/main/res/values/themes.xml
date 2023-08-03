@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.InvioStaj" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/red</item>
@@ -10,6 +10,8 @@
         <item name="android:windowLightStatusBar">?isLightTheme</item>
 
         <item name="fontFamily">@font/source_sans_pro</item>
+
+        <item name="android:progressBarStyle">@style/Widget.Invio.ProgressBar</item>
     </style>
 
     <style name="Theme.InvioStaj" parent="Base.Theme.InvioStaj" />

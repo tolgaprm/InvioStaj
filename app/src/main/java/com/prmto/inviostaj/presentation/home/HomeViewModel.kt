@@ -7,6 +7,7 @@ import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.data.repository.MovieRepository
 import com.prmto.inviostaj.domain.usecase.GetTopRatedMoviePagingDataUseCase
 import com.prmto.inviostaj.domain.usecase.ToggleFavoriteMovieUseCase
+import com.prmto.inviostaj.domain.usecase.UpdateMovieToIsFavoriteUseCase
 import com.prmto.inviostaj.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,6 +23,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getTopRatedMoviePagingDataUseCase: GetTopRatedMoviePagingDataUseCase,
     private val toggleFavoriteMovieUseCase: ToggleFavoriteMovieUseCase,
+    private val updateMovieToIsFavoriteUseCase: UpdateMovieToIsFavoriteUseCase,
     private val repository: MovieRepository
 ) : ViewModel() {
 
@@ -98,19 +100,15 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    @VisibleForTesting
-    fun updateIsFavoriteMovie() {
+    private fun updateIsFavoriteMovie() {
         viewModelScope.launch {
             favoriteMovies.collectLatest { favoriteMovies ->
                 _homeUiState.update {
                     it.copy(
-                        movies = state.value.movies.map { movieItem ->
-                            movieItem.copy(
-                                isFavorite = favoriteMovies.any { favoriteMovie ->
-                                    favoriteMovie.id == movieItem.id
-                                }
-                            )
-                        }
+                        movies = updateMovieToIsFavoriteUseCase(
+                            favoriteMovies = favoriteMovies,
+                            movies = _homeUiState.value.movies
+                        )
                     )
                 }
             }

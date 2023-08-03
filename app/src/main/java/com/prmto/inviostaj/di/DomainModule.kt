@@ -7,6 +7,7 @@ import com.prmto.inviostaj.domain.usecase.ConvertGenreListToSeparatedByCommaUseC
 import com.prmto.inviostaj.domain.usecase.ConvertRuntimeAsHourAndMinutesUseCase
 import com.prmto.inviostaj.domain.usecase.ConvertVoteCountToKFormatUseCase
 import com.prmto.inviostaj.domain.usecase.GetMovieDetailUseCase
+import com.prmto.inviostaj.domain.usecase.GetSearchMovieUseCase
 import com.prmto.inviostaj.domain.usecase.GetTopRatedMoviePagingDataUseCase
 import dagger.Module
 import dagger.Provides
@@ -43,6 +44,19 @@ object DomainModule {
             convertDateFormatUseCase = ConvertDateFormatUseCase(),
             calculateRatingBarValueUseCase = CalculateRatingBarValueUseCase(),
             convertRuntimeAsHourAndMinutesUseCase = ConvertRuntimeAsHourAndMinutesUseCase()
+        )
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetSearchMovieUseCase(
+        repository: MovieRepository
+    ): GetSearchMovieUseCase {
+        return GetSearchMovieUseCase(
+            repository = repository,
+            convertDateFormatUseCase = ConvertDateFormatUseCase(),
+            voteCountToKFormatUseCase = ConvertVoteCountToKFormatUseCase(),
+            convertGenreListToSeparatedByCommaUseCase = ConvertGenreListToSeparatedByCommaUseCase()
         )
     }
 }

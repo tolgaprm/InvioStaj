@@ -70,6 +70,7 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/ibtn_movie_item_favorite"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imv_movie_item_backdrop"
                 tools:text="Spiderman No Way Home" />

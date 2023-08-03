@@ -22,6 +22,12 @@ interface TmdbApi {
         @Path("movie_id") movieId: Int
     ): MovieDetail
 
+    @GET("search/movie")
+    suspend fun searchMovie(
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): ApiResponse<Movie>
+
     companion object {
         const val BASE_URL = "https://api.themoviedb.org/3/"
     }

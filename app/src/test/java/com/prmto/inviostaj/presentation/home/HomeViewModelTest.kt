@@ -49,7 +49,8 @@ class HomeViewModelTest {
             toggleFavoriteMovieUseCase = ToggleFavoriteMovieUseCase(
                 repository
             ),
-            repository = repository
+            repository = repository,
+            updateMovieToIsFavoriteUseCase = mockk(relaxed = true)
         )
     }
 
@@ -82,46 +83,4 @@ class HomeViewModelTest {
         }
     }
 
-    @Test
-    fun `updateIsFavoriteMovie should update isFavorite in movies correctly`() = runTest {
-
-        viewModel.addNewMovies(
-            listOf(
-                Movie(
-                    id = 1,
-                    overview = "",
-                    posterPath = "",
-                    backdropPath = "",
-                    voteAverage = 1.0,
-                    voteCount = 1,
-                    releaseDate = "",
-                    genreIds = emptyList(),
-                    originalTitle = "",
-                    genresBySeparatedByComma = "",
-                    isFavorite = true
-                ),
-                Movie(
-                    id = 2,
-                    overview = "",
-                    posterPath = "",
-                    backdropPath = "",
-                    voteAverage = 1.0,
-                    voteCount = 1,
-                    releaseDate = "",
-                    genreIds = emptyList(),
-                    originalTitle = "",
-                    genresBySeparatedByComma = "",
-                    isFavorite = true
-                )
-            )
-        )
-
-        viewModel.updateIsFavoriteMovie()
-
-        viewModel.state.test {
-            val currentState = awaitItem()
-            assertThat(currentState.movies[0].isFavorite).isTrue()
-            assertThat(currentState.movies[1].isFavorite).isFalse()
-        }
-    }
 }

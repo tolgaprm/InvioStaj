@@ -10,8 +10,13 @@ import javax.inject.Inject
 class MovieRemoteDataSourceImpl @Inject constructor(
     private val api: TmdbApi
 ) : MovieRemoteDataSource {
-    override suspend fun getTopRatedMovies(page: Int): ApiResponse<Movie> {
-        return api.getTopRatedMovies(page)
+    override suspend fun getTopRatedMovies(page: Int): Result<ApiResponse<Movie>> {
+        return try {
+            val response = api.getTopRatedMovies(page = page)
+            Result.success(response)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
     override suspend fun getMovieGenreList(): GenreList {
@@ -20,7 +25,16 @@ class MovieRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getMovieDetail(movieId: Int): Result<MovieDetail> {
         return try {
-            val response = api.getMovieDetail(movieId)
+            val response = api.getMovieDetail(movieId = movieId)
+            Result.success(response)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun searchMovie(query: String, page: Int): Result<ApiResponse<Movie>> {
+        return try {
+            val response = api.searchMovie(query, page)
             Result.success(response)
         } catch (e: Exception) {
             Result.failure(e)
