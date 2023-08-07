@@ -17,7 +17,7 @@ class GetMovieDetailUseCase @Inject constructor(
         return response.data?.let { movie ->
             val movieDetail = movie.copy(
                 releaseDate = convertDateFormatUseCase(inputDate = movie.releaseDate),
-                convertedRuntime = MovieUtils.convertRuntimeAsHourAndMinutes(runtime = movie.runtime),
+                convertedRuntime = MovieUtils.convertRuntimeAsHourAndMinutes(runtimeInMin = movie.runtime),
                 ratingBarValue = MovieUtils.calculateRatingBarValue(voteAverage = movie.voteAverage),
                 voteCountByString = MovieUtils.formatVoteCount(voteCount = movie.voteCount),
                 genresBySeparatedByComma = movie.genres.joinToString(", ") { it.name }

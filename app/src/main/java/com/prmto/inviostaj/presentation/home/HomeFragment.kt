@@ -8,7 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.prmto.inviostaj.MainNavGraphDirections
 import com.prmto.inviostaj.R
 import com.prmto.inviostaj.data.remote.dto.Movie
@@ -61,7 +61,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun addScrollListener() {
         val recyclerView = homeBinding?.rvHomeMovieList ?: return
         recyclerView.addOnScrollListener(object :
-            PaginationScrollListener(recyclerView.layoutManager as LinearLayoutManager) {
+            PaginationScrollListener(recyclerView.layoutManager as GridLayoutManager) {
             override fun loadMoreItems() {
                 homeViewModel.fetchMovies()
             }

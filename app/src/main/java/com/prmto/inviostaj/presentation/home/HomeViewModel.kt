@@ -73,7 +73,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun updateIsFavoriteMovie(
-        filledFavoriteStatusOfMovies: List<Movie>,
+        filledFavoriteStatusOfMovies: List<Movie>
     ) {
         _homeUiState.update {
             it.copy(
