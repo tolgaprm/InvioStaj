@@ -29,6 +29,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
         favoriteBinding?.viewModel = viewModel
         setupRecyclerViewAndAdapter()
         submitFavoriteMoviesToAdapter()
+        viewModel.fetchFavoriteMovies()
     }
 
     private fun submitFavoriteMoviesToAdapter() {

@@ -3,7 +3,6 @@ package com.prmto.inviostaj.data.repository
 import com.prmto.inviostaj.constant.Resource
 import com.prmto.inviostaj.data.remote.dto.GenreList
 import com.prmto.inviostaj.data.remote.dto.Movie
-import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
     suspend fun getTopRatedMovies(page: Int): Resource<List<Movie>>
@@ -14,7 +13,7 @@ interface MovieRepository {
 
     suspend fun getSearchMovies(query: String, page: Int): Resource<List<Movie>>
 
-    fun getFavoriteMovies(): Flow<List<Movie>>
+    suspend fun getFavoriteMovies(): Resource<List<Movie>>
 
     suspend fun insertFavoriteMovie(movie: Movie)
 

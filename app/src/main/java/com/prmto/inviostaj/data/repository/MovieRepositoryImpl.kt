@@ -5,8 +5,6 @@ import com.prmto.inviostaj.data.local.datasource.MovieLocalDataSource
 import com.prmto.inviostaj.data.remote.datasource.MovieRemoteDataSource
 import com.prmto.inviostaj.data.remote.dto.GenreList
 import com.prmto.inviostaj.data.remote.dto.Movie
-import com.prmto.inviostaj.data.util.convertToListResource
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
@@ -14,8 +12,7 @@ class MovieRepositoryImpl @Inject constructor(
     private val movieLocalDataSource: MovieLocalDataSource
 ) : MovieRepository {
     override suspend fun getTopRatedMovies(page: Int): Resource<List<Movie>> {
-        val response = movieRemoteDataSource.getTopRatedMovies(page = page)
-        return response.convertToListResource()
+        return movieRemoteDataSource.getTopRatedMovies(page = page)
     }
 
     override suspend fun getMovieGenreList(): Resource<GenreList> {
@@ -27,11 +24,10 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getSearchMovies(query: String, page: Int): Resource<List<Movie>> {
-        val response = movieRemoteDataSource.searchMovie(query = query, page = page)
-        return response.convertToListResource()
+        return movieRemoteDataSource.searchMovie(query = query, page = page)
     }
 
-    override fun getFavoriteMovies(): Flow<List<Movie>> {
+    override suspend fun getFavoriteMovies(): Resource<List<Movie>> {
         return movieLocalDataSource.getAllFavoriteMovies()
     }
 
