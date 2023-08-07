@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.prmto.inviostaj.MainNavGraphDirections
 import com.prmto.inviostaj.R
-import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.databinding.FragmentHomeBinding
 import com.prmto.inviostaj.ui.adapter.MovieAdapter
 import com.prmto.inviostaj.ui.adapter.PaginationScrollListener
@@ -29,10 +28,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentHomeBinding.bind(view)
-        homeBinding = binding
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = homeViewModel
+        homeBinding = FragmentHomeBinding.bind(view)
+        homeBinding?.lifecycleOwner = viewLifecycleOwner
+        homeBinding?.viewModel = homeViewModel
         setupRecyclerViewAndAdapter()
         addScrollListener()
         collectState()
@@ -43,25 +41,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.state.collectLatest {
                     movieAdapter.submitList(it.movies)
-                    fillFavoriteMovies(it.movies)
+                    favoriteViewModel.updateIsFavoriteMovie(
+                        it.movies,
+                        updatedMovies = {
+                            homeViewModel.updateIsFavoriteMovie(it)
+                        }
+                    )
                 }
             }
         }
     }
 
-    private fun fillFavoriteMovies(movies: List<Movie>) {
-        favoriteViewModel.updateIsFavoriteMovie(
-            movies,
-            updatedMovies = {
-                homeViewModel.updateIsFavoriteMovie(it)
-            }
-        )
-    }
-
     private fun addScrollListener() {
-        val recyclerView = homeBinding?.rvHomeMovieList ?: return
-        recyclerView.addOnScrollListener(object :
-            PaginationScrollListener(recyclerView.layoutManager as GridLayoutManager) {
+        homeBinding?.rvHomeMovieList?.addOnScrollListener(object :
+            PaginationScrollListener(homeBinding?.rvHomeMovieList?.layoutManager as GridLayoutManager) {
             override fun loadMoreItems() {
                 homeViewModel.fetchMovies()
             }

@@ -32,17 +32,14 @@ class ExploreViewModel @Inject constructor(
             if (query.isNotBlank()) {
                 updateDefaultStateWithLoadingTrueAndCurrentQueryState()
                 val resource = getSearchMovieUseCase(
-                    query = query,
-                    page = exploreUiState.value.currentPage++
+                    query = query, page = exploreUiState.value.currentPage++
                 )
-                resource
-                    .onSuccess {
-                        updateIsLastPage(isLastPage = it?.isEmpty() ?: true)
-                        addNewMovies(movies = it ?: emptyList())
-                    }
-                    .onError {
-                        _exploreUiState.update { it.copy(isLoading = false, isError = true) }
-                    }
+                resource.onSuccess {
+                    updateIsLastPage(isLastPage = it?.isEmpty() ?: true)
+                    addNewMovies(movies = it ?: emptyList())
+                }.onError {
+                    _exploreUiState.update { it.copy(isLoading = false, isError = true) }
+                }
             }
         }
     }
@@ -50,8 +47,7 @@ class ExploreViewModel @Inject constructor(
     private fun updateDefaultStateWithLoadingTrueAndCurrentQueryState() {
         _exploreUiState.update {
             ExploreUiState(
-                isLoading = true,
-                query = exploreUiState.value.query
+                isLoading = true, query = exploreUiState.value.query
             )
         }
     }
@@ -72,9 +68,7 @@ class ExploreViewModel @Inject constructor(
     private fun addNewMovies(movies: List<Movie>) {
         _exploreUiState.update {
             it.copy(
-                isLoading = false,
-                isError = false,
-                movies = exploreUiState.value.movies + movies
+                isLoading = false, isError = false, movies = exploreUiState.value.movies + movies
             )
         }
     }

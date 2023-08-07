@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.prmto.inviostaj.MainNavGraphDirections
 import com.prmto.inviostaj.R
-import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.databinding.FragmentExploreBinding
 import com.prmto.inviostaj.ui.adapter.MovieAdapter
 import com.prmto.inviostaj.ui.adapter.PaginationScrollListener
@@ -29,12 +28,11 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentExploreBinding.bind(view)
-        exploreBinding = binding
+        exploreBinding = FragmentExploreBinding.bind(view)
         setupRecyclerViewAndAdapter()
         addScrollListener()
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = exploreViewModel
+        exploreBinding?.lifecycleOwner = viewLifecycleOwner
+        exploreBinding?.viewModel = exploreViewModel
         collectState()
     }
 
@@ -43,25 +41,20 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 exploreViewModel.exploreUiState.collectLatest {
                     movieAdapter.submitList(it.movies)
-                    fillFavoriteMovies(it.movies)
+                    favoriteViewModel.updateIsFavoriteMovie(
+                        it.movies,
+                        updatedMovies = {
+                            exploreViewModel.updateIsFavoriteMovie(it)
+                        }
+                    )
                 }
             }
         }
     }
 
-    private fun fillFavoriteMovies(movies: List<Movie>) {
-        favoriteViewModel.updateIsFavoriteMovie(
-            movies,
-            updatedMovies = {
-                exploreViewModel.updateIsFavoriteMovie(it)
-            }
-        )
-    }
-
     private fun addScrollListener() {
-        val recyclerView = exploreBinding?.rvExploreMovies ?: return
-        recyclerView.addOnScrollListener(object :
-            PaginationScrollListener(recyclerView.layoutManager as GridLayoutManager) {
+        exploreBinding?.rvExploreMovies?.addOnScrollListener(object :
+            PaginationScrollListener(exploreBinding?.rvExploreMovies?.layoutManager as GridLayoutManager) {
             override fun loadMoreItems() {
                 exploreViewModel.fetchMovies()
             }

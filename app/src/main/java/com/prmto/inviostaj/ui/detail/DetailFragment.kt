@@ -19,11 +19,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail), ImdbIconClickListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentDetailBinding.bind(view)
-        detailBinding = binding
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.imdbClickListener = this
-        binding.viewModel = viewModel
+        detailBinding = FragmentDetailBinding.bind(view)
+        detailBinding?.lifecycleOwner = viewLifecycleOwner
+        detailBinding?.imdbClickListener = this
+        detailBinding?.viewModel = viewModel
     }
 
     override fun onDestroyView() {

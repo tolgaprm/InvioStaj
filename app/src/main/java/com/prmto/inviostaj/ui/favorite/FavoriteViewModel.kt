@@ -21,30 +21,23 @@ class FavoriteViewModel @Inject constructor(
     private val movieRepository: MovieRepository,
     private val fillFavoriteStatusOfMovies: FillFavoriteStatusOfMovies
 ) : ViewModel() {
-    private val favoriteMovies = movieRepository.getFavoriteMovies()
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
-        )
+    private val favoriteMovies = movieRepository.getFavoriteMovies().stateIn(
+        viewModelScope, SharingStarted.WhileSubscribed(5000), initialValue = emptyList()
+    )
 
     private val _favoriteUiState = MutableStateFlow(FavoriteUiState())
     val favoriteUiState = combine(
-        _favoriteUiState,
-        favoriteMovies
+        _favoriteUiState, favoriteMovies
     ) { _, favoriteMovies ->
         _favoriteUiState.updateAndGet {
             it.copy(
-                favoriteMovies = favoriteMovies,
-                isLoading = false
+                favoriteMovies = favoriteMovies, isLoading = false
             )
         }
     }.onStart {
         _favoriteUiState.updateAndGet { it.copy(isLoading = true) }
     }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        initialValue = FavoriteUiState()
+        viewModelScope, SharingStarted.WhileSubscribed(5000), initialValue = FavoriteUiState()
     )
 
     fun toggleFavoriteMovie(movie: Movie) {
@@ -64,8 +57,7 @@ class FavoriteViewModel @Inject constructor(
         viewModelScope.launch {
             favoriteMovies.collectLatest { favoriteMovies ->
                 val filledFavoriteStatusMovies = fillFavoriteStatusOfMovies(
-                    favoriteMovies = favoriteMovies,
-                    movies = movies
+                    favoriteMovies = favoriteMovies, movies = movies
                 )
                 updatedMovies(filledFavoriteStatusMovies)
             }
