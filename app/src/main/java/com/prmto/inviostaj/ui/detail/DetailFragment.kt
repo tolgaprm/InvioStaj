@@ -30,7 +30,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail), ImdbIconClickListener
         super.onDestroyView()
     }
 
-    override fun onImdbIconClick(imdbId: String?) {
+    override fun onImdbIconClicked(imdbId: String?) {
         if (imdbId != null) {
             val intent = Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("$IMDB_TITLE_BASE_URl/$imdbId")
