@@ -7,13 +7,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.prmto.inviostaj.presentation.home.HomeViewModel" />
+            type="com.prmto.inviostaj.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.home.HomeFragment">
+        tools:context=".ui.home.HomeFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_home_movie_list"

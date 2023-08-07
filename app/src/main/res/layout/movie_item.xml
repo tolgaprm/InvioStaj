@@ -10,7 +10,7 @@
 
         <variable
             name="movieItemClickListener"
-            type="com.prmto.inviostaj.presentation.adapter.viewHolder.listener.MovieItemClickListener" />
+            type="com.prmto.inviostaj.ui.adapter.viewHolder.listener.MovieItemClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

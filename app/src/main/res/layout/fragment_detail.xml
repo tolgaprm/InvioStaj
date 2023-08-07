@@ -7,10 +7,10 @@
         <import type="com.prmto.inviostaj.util.ImageSize" />
         <variable
             name="viewModel"
-            type="com.prmto.inviostaj.presentation.detail.DetailViewModel" />
+            type="com.prmto.inviostaj.ui.detail.DetailViewModel" />
         <variable
             name="imdbClickListener"
-            type="com.prmto.inviostaj.presentation.detail.ImdbIconClickListener" />
+            type="com.prmto.inviostaj.ui.detail.ImdbIconClickListener" />
     </data>
 
     <ScrollView
@@ -21,7 +21,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".presentation.detail.DetailFragment">
+            tools:context=".ui.detail.DetailFragment">
 
             <ImageView
                 android:id="@+id/imv_detail_poster_path"

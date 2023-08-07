@@ -7,14 +7,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.prmto.inviostaj.presentation.explore.ExploreViewModel" />
+            type="com.prmto.inviostaj.ui.explore.ExploreViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/large_padding"
-        tools:context=".presentation.explore.ExploreFragment">
+        tools:context=".ui.explore.ExploreFragment">
 
         <EditText
             android:id="@+id/et_detail_search"
