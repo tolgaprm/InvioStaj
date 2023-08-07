@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.prmto.inviostaj.ui.explore.ExploreViewModel" />
@@ -24,25 +25,25 @@
             android:drawableStart="@drawable/ic_search_black"
             android:drawablePadding="@dimen/medium_padding"
             android:hint="@string/search_hint"
+            android:importantForAutofill="no"
             android:inputType="text"
+            android:onTextChanged="@{(s,start,end,count)->viewModel.setQuery(String.valueOf(s))}"
             android:padding="@dimen/large_padding"
             android:text="@{viewModel.exploreUiState.query}"
-            android:onTextChanged="@{(s,start,end,count)->viewModel.setQuery(String.valueOf(s))}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_explore_movies"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="@integer/grid_layout_span_count"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_detail_search" />
+            app:layout_constraintTop_toBottomOf="@+id/et_detail_search"
+            app:spanCount="@integer/grid_layout_span_count" />
 
         <include
             android:id="@+id/error_layout"

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
+
+    <variable
             name="onTryAgainClickListener"
             type="android.view.View.OnClickListener" />
     </data>
