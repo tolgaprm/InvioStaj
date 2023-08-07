@@ -1,4 +1,4 @@
-package com.prmto.inviostaj.util
+package com.prmto.inviostaj.constant
 
 sealed class Resource<T>(val data: T? = null, val exception: Exception? = null) {
     class Success<T>(data: T) : Resource<T>(data = data)

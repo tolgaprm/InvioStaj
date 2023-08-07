@@ -1,8 +1,8 @@
 package com.prmto.inviostaj.data.repository
 
+import com.prmto.inviostaj.constant.Resource
 import com.prmto.inviostaj.data.remote.dto.GenreList
 import com.prmto.inviostaj.data.remote.dto.Movie
-import com.prmto.inviostaj.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {

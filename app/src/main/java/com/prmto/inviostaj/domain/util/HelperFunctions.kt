@@ -1,7 +1,7 @@
 package com.prmto.inviostaj.domain.util
 
+import com.prmto.inviostaj.constant.Resource
 import com.prmto.inviostaj.data.remote.dto.Movie
-import com.prmto.inviostaj.util.Resource
 
 suspend fun Resource<List<Movie>>.updateMovieListWithFormattedInfo(
     convertGenreListWithComma: suspend (List<Int>) -> String,

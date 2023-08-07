@@ -1,11 +1,11 @@
 package com.prmto.inviostaj.data.repository
 
+import com.prmto.inviostaj.constant.Resource
 import com.prmto.inviostaj.data.local.datasource.MovieLocalDataSource
 import com.prmto.inviostaj.data.remote.datasource.MovieRemoteDataSource
 import com.prmto.inviostaj.data.remote.dto.GenreList
 import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.data.util.convertToListResource
-import com.prmto.inviostaj.util.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

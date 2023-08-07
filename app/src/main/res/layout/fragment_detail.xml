@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.prmto.inviostaj.util.ImageSize" />
+        <import type="com.prmto.inviostaj.constant.ImageSize" />
         <variable
             name="viewModel"
             type="com.prmto.inviostaj.ui.detail.DetailViewModel" />

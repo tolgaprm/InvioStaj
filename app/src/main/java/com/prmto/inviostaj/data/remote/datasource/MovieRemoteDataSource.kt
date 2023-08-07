@@ -1,9 +1,9 @@
 package com.prmto.inviostaj.data.remote.datasource
 
+import com.prmto.inviostaj.constant.Resource
 import com.prmto.inviostaj.data.remote.dto.GenreList
 import com.prmto.inviostaj.data.remote.dto.ListResponse
 import com.prmto.inviostaj.data.remote.dto.Movie
-import com.prmto.inviostaj.util.Resource
 
 interface MovieRemoteDataSource {
     suspend fun getTopRatedMovies(page: Int): Resource<ListResponse<Movie>>

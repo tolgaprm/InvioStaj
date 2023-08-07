@@ -5,8 +5,8 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import coil.load
 import com.prmto.inviostaj.R
+import com.prmto.inviostaj.constant.ImageSize
 import com.prmto.inviostaj.util.Constants.IMAGE_BASE_URL
-import com.prmto.inviostaj.util.ImageSize
 
 @BindingAdapter("app:isVisible")
 fun setVisibility(view: View, isVisible: Boolean) {

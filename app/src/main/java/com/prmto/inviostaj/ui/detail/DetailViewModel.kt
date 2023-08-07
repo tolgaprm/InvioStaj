@@ -3,10 +3,10 @@ package com.prmto.inviostaj.ui.detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.prmto.inviostaj.constant.onError
+import com.prmto.inviostaj.constant.onSuccess
 import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.domain.usecase.GetMovieDetailUseCase
-import com.prmto.inviostaj.util.onError
-import com.prmto.inviostaj.util.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -1,9 +1,9 @@
 package com.prmto.inviostaj.domain.usecase
 
+import com.prmto.inviostaj.constant.Resource
 import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.data.repository.MovieRepository
 import com.prmto.inviostaj.domain.util.updateMovieListWithFormattedInfo
-import com.prmto.inviostaj.util.Resource
 import javax.inject.Inject
 
 class GetTopRatedMoviePagingDataUseCase @Inject constructor(

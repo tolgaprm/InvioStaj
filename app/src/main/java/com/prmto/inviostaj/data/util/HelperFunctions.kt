@@ -1,7 +1,7 @@
 package com.prmto.inviostaj.data.util
 
+import com.prmto.inviostaj.constant.Resource
 import com.prmto.inviostaj.data.remote.dto.ListResponse
-import com.prmto.inviostaj.util.Resource
 
 suspend fun <T> tryCatchApiCallReturnResource(apiCall: suspend () -> T): Resource<T> {
     return try {

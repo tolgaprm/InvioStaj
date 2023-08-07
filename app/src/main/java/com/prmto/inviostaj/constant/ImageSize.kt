@@ -1,4 +1,4 @@
-package com.prmto.inviostaj.util
+package com.prmto.inviostaj.constant
 
 enum class ImageSize(val path: String) {
     W500("w500"),
