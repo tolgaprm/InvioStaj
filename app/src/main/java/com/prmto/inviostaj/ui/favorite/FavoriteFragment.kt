@@ -10,8 +10,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.prmto.inviostaj.MainNavGraphDirections
 import com.prmto.inviostaj.R
+import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.databinding.FragmentFavoriteBinding
 import com.prmto.inviostaj.ui.adapter.MovieAdapter
+import com.prmto.inviostaj.ui.adapter.viewHolder.listener.MovieItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -44,12 +46,15 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
 
     private fun setupRecyclerViewAndAdapter() {
         movieAdapter = MovieAdapter(
-            onToggleFavoriteClick = {
-                viewModel.toggleFavoriteMovie(it)
-            },
-            onMovieClick = { movieId ->
-                val action = MainNavGraphDirections.actionGlobalDetail(movieId)
-                findNavController().navigate(action)
+            object : MovieItemClickListener {
+                override fun onToggleFavoriteClicked(movie: Movie) {
+                    viewModel.toggleFavoriteMovie(movie)
+                }
+
+                override fun onMovieClicked(movieId: Int) {
+                    val action = MainNavGraphDirections.actionGlobalDetail(movieId)
+                    findNavController().navigate(action)
+                }
             }
         )
         favoriteBinding?.rvFavoriteMovie?.adapter = movieAdapter

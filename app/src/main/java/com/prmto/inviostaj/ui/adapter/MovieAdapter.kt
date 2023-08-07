@@ -8,8 +8,7 @@ import com.prmto.inviostaj.ui.adapter.viewHolder.MovieViewHolder
 import com.prmto.inviostaj.ui.adapter.viewHolder.listener.MovieItemClickListener
 
 class MovieAdapter(
-    private val onToggleFavoriteClick: (Movie) -> Unit,
-    private val onMovieClick: (movieId: Int) -> Unit
+    private val movieItemClickListener: MovieItemClickListener
 ) : ListAdapter<Movie, MovieViewHolder>(MovieDiffer()), MovieItemClickListener {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder.create(
@@ -28,11 +27,11 @@ class MovieAdapter(
     }
 
     override fun onToggleFavoriteClicked(movie: Movie) {
-        onToggleFavoriteClick(movie)
+        movieItemClickListener.onToggleFavoriteClicked(movie)
     }
 
     override fun onMovieClicked(movieId: Int) {
-        onMovieClick(movieId)
+        movieItemClickListener.onMovieClicked(movieId)
     }
 }
 

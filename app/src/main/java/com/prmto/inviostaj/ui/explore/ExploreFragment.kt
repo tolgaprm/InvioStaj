@@ -11,9 +11,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.prmto.inviostaj.MainNavGraphDirections
 import com.prmto.inviostaj.R
+import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.databinding.FragmentExploreBinding
 import com.prmto.inviostaj.ui.adapter.MovieAdapter
 import com.prmto.inviostaj.ui.adapter.PaginationScrollListener
+import com.prmto.inviostaj.ui.adapter.viewHolder.listener.MovieItemClickListener
 import com.prmto.inviostaj.ui.favorite.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -67,12 +69,15 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
 
     private fun setupRecyclerViewAndAdapter() {
         movieAdapter = MovieAdapter(
-            onToggleFavoriteClick = { movie ->
-                favoriteViewModel.toggleFavoriteMovie(movie = movie)
-            },
-            onMovieClick = { movieId ->
-                val action = MainNavGraphDirections.actionGlobalDetail(movieId)
-                findNavController().navigate(action)
+            object : MovieItemClickListener {
+                override fun onToggleFavoriteClicked(movie: Movie) {
+                    favoriteViewModel.toggleFavoriteMovie(movie)
+                }
+
+                override fun onMovieClicked(movieId: Int) {
+                    val action = MainNavGraphDirections.actionGlobalDetail(movieId)
+                    findNavController().navigate(action)
+                }
             }
         )
         exploreBinding?.rvExploreMovies?.adapter = movieAdapter

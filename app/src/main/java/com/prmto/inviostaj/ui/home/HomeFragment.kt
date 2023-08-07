@@ -11,9 +11,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.prmto.inviostaj.MainNavGraphDirections
 import com.prmto.inviostaj.R
+import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.databinding.FragmentHomeBinding
 import com.prmto.inviostaj.ui.adapter.MovieAdapter
 import com.prmto.inviostaj.ui.adapter.PaginationScrollListener
+import com.prmto.inviostaj.ui.adapter.viewHolder.listener.MovieItemClickListener
 import com.prmto.inviostaj.ui.favorite.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -41,12 +43,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.state.collectLatest {
                     movieAdapter.submitList(it.movies)
-                    favoriteViewModel.updateIsFavoriteMovie(
-                        it.movies,
-                        updatedMovies = {
-                            homeViewModel.updateIsFavoriteMovie(it)
-                        }
-                    )
+                    favoriteViewModel.updateIsFavoriteMovie(it.movies, updatedMovies = {
+                        homeViewModel.updateIsFavoriteMovie(it)
+                    })
                 }
             }
         }
@@ -66,15 +65,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun setupRecyclerViewAndAdapter() {
-        movieAdapter = MovieAdapter(
-            onToggleFavoriteClick = { movie ->
-                favoriteViewModel.toggleFavoriteMovie(movie = movie)
-            },
-            onMovieClick = { movieId ->
+        movieAdapter = MovieAdapter(object : MovieItemClickListener {
+            override fun onToggleFavoriteClicked(movie: Movie) {
+                favoriteViewModel.toggleFavoriteMovie(movie)
+            }
+
+            override fun onMovieClicked(movieId: Int) {
                 val action = MainNavGraphDirections.actionGlobalDetail(movieId)
                 findNavController().navigate(action)
             }
-        )
+        })
+
         homeBinding?.let { binding ->
             binding.rvHomeMovieList.adapter = movieAdapter
         }

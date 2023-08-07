@@ -68,7 +68,9 @@ class ExploreViewModel @Inject constructor(
     private fun addNewMovies(movies: List<Movie>) {
         _exploreUiState.update {
             it.copy(
-                isLoading = false, isError = false, movies = exploreUiState.value.movies + movies
+                isLoading = false,
+                isError = false,
+                movies = exploreUiState.value.movies + movies
             )
         }
     }
