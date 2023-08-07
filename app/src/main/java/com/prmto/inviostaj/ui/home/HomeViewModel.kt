@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.prmto.inviostaj.constant.onError
 import com.prmto.inviostaj.constant.onSuccess
 import com.prmto.inviostaj.data.remote.dto.Movie
-import com.prmto.inviostaj.domain.usecase.GetTopRatedMoviePagingDataUseCase
+import com.prmto.inviostaj.domain.usecase.GetMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getTopRatedMoviePagingDataUseCase: GetTopRatedMoviePagingDataUseCase
+    private val getMoviesUseCase: GetMoviesUseCase
 ) : ViewModel() {
     private val _homeUiState = MutableStateFlow(HomeUiState())
     val state = _homeUiState.asStateFlow()
@@ -34,7 +34,7 @@ class HomeViewModel @Inject constructor(
                 )
             }
             val resource =
-                getTopRatedMoviePagingDataUseCase(page = state.value.currentPage++)
+                getMoviesUseCase(page = state.value.currentPage++)
 
             resource
                 .onSuccess {

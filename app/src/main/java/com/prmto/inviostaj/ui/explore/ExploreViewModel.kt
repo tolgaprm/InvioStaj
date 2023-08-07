@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.prmto.inviostaj.constant.onError
 import com.prmto.inviostaj.constant.onSuccess
 import com.prmto.inviostaj.data.remote.dto.Movie
-import com.prmto.inviostaj.domain.usecase.GetSearchMovieUseCase
+import com.prmto.inviostaj.domain.usecase.GetMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExploreViewModel @Inject constructor(
-    private val getSearchMovieUseCase: GetSearchMovieUseCase
+    private val getMoviesUseCase: GetMoviesUseCase
 ) : ViewModel() {
     private var _exploreUiState = MutableStateFlow(ExploreUiState())
     val exploreUiState = _exploreUiState.asStateFlow()
@@ -31,7 +31,7 @@ class ExploreViewModel @Inject constructor(
             delay(500)
             if (query.isNotBlank()) {
                 updateDefaultStateWithLoadingTrueAndCurrentQueryState()
-                val resource = getSearchMovieUseCase(
+                val resource = getMoviesUseCase(
                     query = query, page = exploreUiState.value.currentPage++
                 )
                 resource.onSuccess {
