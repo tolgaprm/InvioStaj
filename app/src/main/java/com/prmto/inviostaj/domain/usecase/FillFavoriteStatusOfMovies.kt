@@ -3,7 +3,7 @@ package com.prmto.inviostaj.domain.usecase
 import com.prmto.inviostaj.data.remote.dto.Movie
 import javax.inject.Inject
 
-class UpdateMovieToIsFavoriteUseCase @Inject constructor() {
+class FillFavoriteStatusOfMovies @Inject constructor() {
     operator fun invoke(
         favoriteMovies: List<Movie>,
         movies: List<Movie>

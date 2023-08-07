@@ -1,5 +1,5 @@
 [versions]
-com-android-application = "8.1.0-alpha11"
+com-android-application = "8.0.0"
 org-jetbrains-kotlin-android = "1.8.0"
 core-ktx = "1.8.0"
 junit = "4.13.2"
@@ -76,7 +76,6 @@ moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.re
 moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi_version" }
 hilt-android-gradle-plugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "hilt_version" }
 
-
 # Tests
 test-core = { group = "androidx.test", name = "core", version.ref = "test_core_version" }
 hamcrest = { group = "org.hamcrest", name = "hamcrest-all", version.ref = "hamcrest_version" }
@@ -91,12 +90,10 @@ turbine = { group = 'app.cash.turbine', name = 'turbine', version = "0.7.0" }
 hilt-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt_version" }
 mockWebServer = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "mockWebServerVersion" }
 
-
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "com-android-application" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
 navigation-safe-args = { id = "androidx.navigation.safeargs.kotlin", version.ref = "nav_version" }
-navigation-safe-args-module = { id = "androidx.navigation.safeargs" }
-
+navigation-safe-args-module = { id = "androidx.navigation.safeargs", version.ref = "nav_version" }
+dagger-hilt-android-plugin = { id = "dagger.hilt.android.plugin" }
 [bundles]
-

@@ -7,5 +7,5 @@ data class HomeUiState(
     val isError: Boolean = false,
     var currentPage: Int = 1,
     val movies: List<Movie> = emptyList(),
-    val isLastPage: Boolean = false,
+    val isLastPage: Boolean = false
 )

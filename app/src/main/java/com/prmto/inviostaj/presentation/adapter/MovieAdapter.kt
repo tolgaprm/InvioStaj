@@ -9,11 +9,11 @@ import com.prmto.inviostaj.presentation.adapter.viewHolder.listener.MovieItemCli
 
 class MovieAdapter(
     private val onToggleFavoriteClick: (Movie) -> Unit,
-    private val onMovieClick: (movieId: Int) -> Unit,
+    private val onMovieClick: (movieId: Int) -> Unit
 ) : ListAdapter<Movie, MovieViewHolder>(MovieDiffer()), MovieItemClickListener {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder.create(
-            parent = parent,
+            parent = parent
         )
     }
 
@@ -22,7 +22,7 @@ class MovieAdapter(
         holder.binding.movieItemClickListener = this
         movieItem?.let { movie ->
             holder.bind(
-                movie = movie,
+                movie = movie
             )
         }
     }

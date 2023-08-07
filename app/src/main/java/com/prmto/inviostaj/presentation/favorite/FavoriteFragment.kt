@@ -8,7 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.prmto.inviostaj.MainNavGraphDirections
 import com.prmto.inviostaj.R
 import com.prmto.inviostaj.databinding.FragmentFavoriteBinding
 import com.prmto.inviostaj.presentation.adapter.MovieAdapter
@@ -18,11 +18,8 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
-
     private var favoriteBinding: FragmentFavoriteBinding? = null
-
     private val viewModel: FavoriteViewModel by viewModels()
-
     private lateinit var movieAdapter: MovieAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,17 +48,11 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
                 viewModel.toggleFavoriteMovie(it)
             },
             onMovieClick = { movieId ->
-                val action =
-                    FavoriteFragmentDirections.actionFavoriteFragmentToDetailFragment(movieId)
+                val action = MainNavGraphDirections.actionGlobalDetail(movieId)
                 findNavController().navigate(action)
             }
         )
-        favoriteBinding?.let {
-            with(it.rvFavoriteMovie) {
-                adapter = movieAdapter
-                layoutManager = LinearLayoutManager(requireContext())
-            }
-        }
+        favoriteBinding?.rvFavoriteMovie?.adapter = movieAdapter
     }
 
     override fun onDestroyView() {

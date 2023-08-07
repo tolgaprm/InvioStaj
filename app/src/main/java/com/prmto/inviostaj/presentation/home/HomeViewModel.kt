@@ -4,37 +4,22 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.prmto.inviostaj.data.remote.dto.Movie
-import com.prmto.inviostaj.data.repository.MovieRepository
 import com.prmto.inviostaj.domain.usecase.GetTopRatedMoviePagingDataUseCase
-import com.prmto.inviostaj.domain.usecase.ToggleFavoriteMovieUseCase
-import com.prmto.inviostaj.domain.usecase.UpdateMovieToIsFavoriteUseCase
-import com.prmto.inviostaj.util.Resource
+import com.prmto.inviostaj.util.onError
+import com.prmto.inviostaj.util.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getTopRatedMoviePagingDataUseCase: GetTopRatedMoviePagingDataUseCase,
-    private val toggleFavoriteMovieUseCase: ToggleFavoriteMovieUseCase,
-    private val updateMovieToIsFavoriteUseCase: UpdateMovieToIsFavoriteUseCase,
-    private val repository: MovieRepository
+    private val getTopRatedMoviePagingDataUseCase: GetTopRatedMoviePagingDataUseCase
 ) : ViewModel() {
-
     private val _homeUiState = MutableStateFlow(HomeUiState())
     val state = _homeUiState.asStateFlow()
-
-    private val favoriteMovies = repository.getFavoriteMovies().stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        emptyList()
-    )
 
     init {
         fetchMovies()
@@ -42,35 +27,28 @@ class HomeViewModel @Inject constructor(
 
     fun fetchMovies() {
         viewModelScope.launch {
-            getTopRatedMoviePagingDataUseCase(page = state.value.currentPage++).collect { resource ->
-                when (resource) {
-                    is Resource.Loading -> {
-                        _homeUiState.update {
-                            it.copy(
-                                isLoading = true,
-                                isError = false
-                            )
-                        }
-                    }
+            _homeUiState.update {
+                it.copy(
+                    isLoading = true,
+                    isError = false
+                )
+            }
+            val resource =
+                getTopRatedMoviePagingDataUseCase(page = state.value.currentPage++)
 
-                    is Resource.Success -> {
-                        updateIsLastPage(isLastPage = resource.data?.isEmpty() ?: true)
-
-                        addNewMovies(movies = resource.data ?: emptyList())
-
-                        updateIsFavoriteMovie()
-                    }
-
-                    is Resource.Error -> {
-                        _homeUiState.update {
-                            it.copy(
-                                isError = true,
-                                isLoading = false
-                            )
-                        }
+            resource
+                .onSuccess {
+                    updateIsLastPage(isLastPage = it?.isEmpty() ?: true)
+                    updateHomeStateWithNewMovies(movies = it ?: emptyList())
+                }
+                .onError {
+                    _homeUiState.update {
+                        it.copy(
+                            isError = true,
+                            isLoading = false
+                        )
                     }
                 }
-            }
         }
     }
 
@@ -84,7 +62,7 @@ class HomeViewModel @Inject constructor(
     }
 
     @VisibleForTesting
-    fun addNewMovies(movies: List<Movie>) {
+    fun updateHomeStateWithNewMovies(movies: List<Movie>) {
         _homeUiState.update {
             it.copy(
                 isLoading = false,
@@ -94,25 +72,13 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun toggleFavoriteMovie(movie: Movie) {
-        viewModelScope.launch {
-            toggleFavoriteMovieUseCase(movie)
-        }
-    }
-
-    private fun updateIsFavoriteMovie() {
-        viewModelScope.launch {
-            favoriteMovies.collectLatest { favoriteMovies ->
-                _homeUiState.update {
-                    it.copy(
-                        movies = updateMovieToIsFavoriteUseCase(
-                            favoriteMovies = favoriteMovies,
-                            movies = _homeUiState.value.movies
-                        )
-                    )
-                }
-            }
+    fun updateIsFavoriteMovie(
+        filledFavoriteStatusOfMovies: List<Movie>,
+    ) {
+        _homeUiState.update {
+            it.copy(
+                movies = filledFavoriteStatusOfMovies
+            )
         }
     }
 }
-

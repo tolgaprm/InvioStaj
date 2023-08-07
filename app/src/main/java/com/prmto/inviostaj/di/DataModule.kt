@@ -2,6 +2,7 @@ package com.prmto.inviostaj.di
 
 import android.content.Context
 import androidx.room.Room
+import com.prmto.inviostaj.BuildConfig
 import com.prmto.inviostaj.data.interceptor.RequestInterceptor
 import com.prmto.inviostaj.data.local.InvioDatabase
 import com.prmto.inviostaj.data.local.datasource.MovieLocalDataSource
@@ -26,7 +27,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {
-
     @Provides
     @Singleton
     fun provideMoshi(): Moshi {
@@ -48,7 +48,7 @@ object DataModule {
         moshi: Moshi
     ): TmdbApi {
         return Retrofit.Builder()
-            .baseUrl(TmdbApi.BASE_URL)
+            .baseUrl(BuildConfig.TMDB_BASE_URL)
             .client(onHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()

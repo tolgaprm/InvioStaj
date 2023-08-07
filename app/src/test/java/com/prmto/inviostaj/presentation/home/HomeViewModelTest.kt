@@ -6,10 +6,8 @@ import com.prmto.inviostaj.data.FakeMovieRepository
 import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.data.repository.MovieRepository
 import com.prmto.inviostaj.domain.usecase.ConvertDateFormatUseCase
-import com.prmto.inviostaj.domain.usecase.ConvertGenreListToSeparatedByCommaUseCase
-import com.prmto.inviostaj.domain.usecase.ConvertVoteCountToKFormatUseCase
+import com.prmto.inviostaj.domain.usecase.ConvertMovieGenreListToSeparatedByCommaUseCase
 import com.prmto.inviostaj.domain.usecase.GetTopRatedMoviePagingDataUseCase
-import com.prmto.inviostaj.domain.usecase.ToggleFavoriteMovieUseCase
 import com.prmto.inviostaj.util.MainDispatcherRule
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -44,13 +42,10 @@ class HomeViewModelTest {
                 repository = repository,
                 convertDateFormatUseCase = ConvertDateFormatUseCase(),
                 convertVoteCountToKFormatUseCase = ConvertVoteCountToKFormatUseCase(),
-                convertGenreListToSeparatedByCommaUseCase = ConvertGenreListToSeparatedByCommaUseCase()
+                convertMovieGenreListToSeparatedByCommaUseCase = ConvertMovieGenreListToSeparatedByCommaUseCase()
             ),
-            toggleFavoriteMovieUseCase = ToggleFavoriteMovieUseCase(
-                repository
-            ),
-            repository = repository,
-            updateMovieToIsFavoriteUseCase = mockk(relaxed = true)
+            fillFavoriteStatusOfMovies = mockk(relaxed = true),
+            repository = repository
         )
     }
 
@@ -72,7 +67,7 @@ class HomeViewModelTest {
         val initialState = viewModel.state.value
         val moviesToAdd = listOf(mockk<Movie>(), mockk<Movie>(), mockk<Movie>())
 
-        viewModel.addNewMovies(moviesToAdd)
+        viewModel.updateHomeStateWithNewMovies(moviesToAdd)
 
         viewModel.state.test {
             val currentState = awaitItem()

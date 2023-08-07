@@ -23,6 +23,7 @@ android {
         versionCode = 1
         versionName = "1.0"
         buildConfigField("String", "API_KEY", "\"${properties.getProperty("API_KEY")}\"")
+        buildConfigField("String", "TMDB_BASE_URL", "\"${properties.getProperty("TMDB_BASE_URL")}\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -50,7 +51,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -85,6 +85,7 @@ dependencies {
     implementation(libs.moshi.kotlin)
     kapt(libs.moshi.kotlin.codegen)
 
+    // Splash Screen
     implementation(libs.splashscreen)
 
     // Coil
@@ -101,19 +102,17 @@ dependencies {
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockk)
     testImplementation(libs.mockWebServer)
-    // Flow Testing
     testImplementation(libs.turbine)
 
-    androidTestImplementation(libs.hilt.testing)
     kaptAndroidTest(libs.dagger.hilt.compiler)
 
     // Instrumented Unit Tests
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.hilt.testing)
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.core.testing)
     androidTestImplementation(libs.truth)
     androidTestImplementation(libs.mockito.core)
     androidTestImplementation(libs.mockito.android)
-
 }

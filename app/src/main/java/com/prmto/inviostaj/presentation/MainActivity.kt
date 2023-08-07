@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
         val navHost =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.fcv_activity_main) as NavHostFragment
 
         val navController = navHost.navController
 
@@ -32,10 +32,10 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        binding.toolbar.setupWithNavController(navController, appBarConfigure)
+        binding.tbarActivityMain.setupWithNavController(navController, appBarConfigure)
 
-        binding.bottomNavigationView?.setupWithNavController(navController)
+        binding.bnvActivityMain?.setupWithNavController(navController)
 
-        binding.navigationRailView?.setupWithNavController(navController)
+        binding.nrvActivityMain?.setupWithNavController(navController)
     }
 }

@@ -7,17 +7,14 @@
     <string name="explore_screen_toolbar_title">Explore Screen</string>
     <string name="favorite_screen_toolbar_title">Favorites</string>
     <string name="movie_detail_toolbar_title">Movie Detail</string>
-
-
     <string name="voteAverage">%1$s (%2$s)</string>
     <string name="try_again">Try Again</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="removeFromFavorite">Remove from Favorite</string>
     <string name="addToFavorite">Add to Favorite</string>
     <string name="overview">Overview</string>
-
     <string name="runtime">%1$sh %2$sm</string>
     <string name="imdb_icon_description">IMDB Icon</string>
-    <string name="the_imdbid_is_not_exists">"The ImdbId is not exists "</string>
+    <string name="the_imdb_id_does_not_exists">"The ImdbId does not exists "</string>
     <string name="search_hint">Search</string>
 </resources>

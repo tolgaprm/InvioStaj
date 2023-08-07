@@ -2,8 +2,7 @@ package com.prmto.inviostaj.data.remote.dto
 
 import com.squareup.moshi.Json
 
-
-data class ApiResponse<T>(
+data class ListResponse<T>(
     val page: Int,
     val results: List<T>,
     @Json(name = "total_results") val totalResults: Int,

@@ -1,7 +1,6 @@
 package com.prmto.inviostaj.presentation.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -10,43 +9,53 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.prmto.inviostaj.MainNavGraphDirections
 import com.prmto.inviostaj.R
+import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.databinding.FragmentHomeBinding
 import com.prmto.inviostaj.presentation.adapter.MovieAdapter
 import com.prmto.inviostaj.presentation.adapter.PaginationScrollListener
+import com.prmto.inviostaj.presentation.favorite.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
-
     private var homeBinding: FragmentHomeBinding? = null
-    private val viewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
+    private val favoriteViewModel: FavoriteViewModel by viewModels()
     private lateinit var movieAdapter: MovieAdapter
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentHomeBinding.bind(view)
         homeBinding = binding
-
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
-
+        binding.viewModel = homeViewModel
         setupRecyclerViewAndAdapter()
         addScrollListener()
-        submitMoviesToAdapter()
+        collectState()
     }
 
-    private fun submitMoviesToAdapter() {
+    private fun collectState() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collectLatest {
+                homeViewModel.state.collectLatest {
                     movieAdapter.submitList(it.movies)
+                    fillFavoriteMovies(it.movies)
                 }
             }
         }
+    }
+
+    private fun fillFavoriteMovies(movies: List<Movie>) {
+        favoriteViewModel.updateIsFavoriteMovie(
+            movies,
+            updatedMovies = {
+                homeViewModel.updateIsFavoriteMovie(it)
+            }
+        )
     }
 
     private fun addScrollListener() {
@@ -54,32 +63,27 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         recyclerView.addOnScrollListener(object :
             PaginationScrollListener(recyclerView.layoutManager as LinearLayoutManager) {
             override fun loadMoreItems() {
-                viewModel.fetchMovies()
+                homeViewModel.fetchMovies()
             }
 
-            override fun isLastPage() = viewModel.state.value.isLastPage
+            override fun isLastPage() = homeViewModel.state.value.isLastPage
 
-            override fun isLoading() = viewModel.state.value.isLoading
+            override fun isLoading() = homeViewModel.state.value.isLoading
         })
     }
 
     private fun setupRecyclerViewAndAdapter() {
         movieAdapter = MovieAdapter(
             onToggleFavoriteClick = { movie ->
-                viewModel.toggleFavoriteMovie(movie = movie)
+                favoriteViewModel.toggleFavoriteMovie(movie = movie)
             },
             onMovieClick = { movieId ->
-                Log.d("Invio", movieId.toString())
-                val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(movieId)
+                val action = MainNavGraphDirections.actionGlobalDetail(movieId)
                 findNavController().navigate(action)
             }
         )
-
-        homeBinding?.let {
-            with(it.rvHomeMovieList) {
-                adapter = movieAdapter
-                layoutManager = LinearLayoutManager(requireContext())
-            }
+        homeBinding?.let { binding ->
+            binding.rvHomeMovieList.adapter = movieAdapter
         }
     }
 

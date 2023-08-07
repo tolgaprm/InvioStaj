@@ -9,78 +9,80 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.prmto.inviostaj.MainNavGraphDirections
 import com.prmto.inviostaj.R
+import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.databinding.FragmentExploreBinding
 import com.prmto.inviostaj.presentation.adapter.MovieAdapter
 import com.prmto.inviostaj.presentation.adapter.PaginationScrollListener
+import com.prmto.inviostaj.presentation.favorite.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ExploreFragment : Fragment(R.layout.fragment_explore) {
-
     private var exploreBinding: FragmentExploreBinding? = null
-
-    private val viewModel: ExploreViewModel by viewModels()
-
+    private val exploreViewModel: ExploreViewModel by viewModels()
+    private val favoriteViewModel: FavoriteViewModel by viewModels()
     private lateinit var movieAdapter: MovieAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentExploreBinding.bind(view)
         exploreBinding = binding
-
         setupRecyclerViewAndAdapter()
         addScrollListener()
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
+        binding.viewModel = exploreViewModel
+        collectState()
+    }
 
+    private fun collectState() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.exploreUiState.collectLatest {
+                exploreViewModel.exploreUiState.collectLatest {
                     movieAdapter.submitList(it.movies)
+                    fillFavoriteMovies(it.movies)
                 }
             }
         }
     }
 
+    private fun fillFavoriteMovies(movies: List<Movie>) {
+        favoriteViewModel.updateIsFavoriteMovie(
+            movies,
+            updatedMovies = {
+                exploreViewModel.updateIsFavoriteMovie(it)
+            }
+        )
+    }
+
     private fun addScrollListener() {
         val recyclerView = exploreBinding?.rvExploreMovies ?: return
         recyclerView.addOnScrollListener(object :
-            PaginationScrollListener(recyclerView.layoutManager as LinearLayoutManager) {
+            PaginationScrollListener(recyclerView.layoutManager as GridLayoutManager) {
             override fun loadMoreItems() {
-                viewModel.fetchMovies()
+                exploreViewModel.fetchMovies()
             }
 
-            override fun isLastPage() = viewModel.exploreUiState.value.isLastPage
+            override fun isLastPage() = exploreViewModel.exploreUiState.value.isLastPage
 
-            override fun isLoading() = viewModel.exploreUiState.value.isLoading
+            override fun isLoading() = exploreViewModel.exploreUiState.value.isLoading
         })
     }
 
     private fun setupRecyclerViewAndAdapter() {
         movieAdapter = MovieAdapter(
             onToggleFavoriteClick = { movie ->
-                viewModel.toggleFavoriteMovie(movie = movie)
+                favoriteViewModel.toggleFavoriteMovie(movie = movie)
             },
             onMovieClick = { movieId ->
-                val action =
-                    ExploreFragmentDirections.actionExploreFragmentToDetailFragment(movieId)
+                val action = MainNavGraphDirections.actionGlobalDetail(movieId)
                 findNavController().navigate(action)
             }
         )
-
-        exploreBinding?.let {
-            with(it.rvExploreMovies) {
-                adapter = movieAdapter
-                layoutManager = GridLayoutManager(
-                    requireContext(),
-                    requireContext().resources.getInteger(R.integer.explore_fragment_grid_layout_span_count)
-                )
-            }
-        }
+        exploreBinding?.rvExploreMovies?.adapter = movieAdapter
     }
 
     override fun onDestroyView() {

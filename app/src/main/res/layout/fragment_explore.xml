@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.prmto.inviostaj.presentation.explore.ExploreViewModel" />
@@ -18,7 +17,7 @@
         tools:context=".presentation.explore.ExploreFragment">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/et_detail_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_color_surface_bordered_color_on_surface_with_radius_16dp"
@@ -27,19 +26,23 @@
             android:hint="@string/search_hint"
             android:inputType="text"
             android:padding="@dimen/large_padding"
-            android:text="@={viewModel.query}"
+            android:text="@{viewModel.exploreUiState.query}"
+            android:onTextChanged="@{(s,start,end,count)->viewModel.setQuery(String.valueOf(s))}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:importantForAutofill="no" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_explore_movies"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="@integer/grid_layout_span_count"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
+            app:layout_constraintTop_toBottomOf="@+id/et_detail_search" />
 
         <include
             android:id="@+id/error_layout"
@@ -55,6 +58,7 @@
             bind:onTryAgainClickListener="@{()->viewModel.fetchMovies()}" />
 
         <ProgressBar
+            android:id="@+id/pb_explore_movies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -62,7 +66,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/editText" />
-
+            app:layout_constraintTop_toTopOf="@+id/et_detail_search" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

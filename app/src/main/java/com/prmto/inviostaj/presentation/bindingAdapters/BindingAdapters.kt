@@ -2,17 +2,15 @@ package com.prmto.inviostaj.presentation.bindingAdapters
 
 import android.view.View
 import android.widget.ImageView
-import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import coil.load
 import com.prmto.inviostaj.R
 import com.prmto.inviostaj.util.Constants.IMAGE_BASE_URL
 import com.prmto.inviostaj.util.ImageSize
 
-
 @BindingAdapter("app:isVisible")
 fun setVisibility(view: View, isVisible: Boolean) {
-    view.isVisible = isVisible
+    view.visibility = if (isVisible) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter(value = ["imageUrl", "imageSize"], requireAll = false)

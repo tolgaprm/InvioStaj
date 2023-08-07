@@ -9,16 +9,16 @@
         tools:context=".presentation.MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
+            android:id="@+id/abl_activity_main"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="?colorSurface"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/navigationRailView"
+            app:layout_constraintStart_toEndOf="@+id/nrv_activity_main"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/tbar_activity_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -26,31 +26,27 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:title="@string/home_screen_toolbar_title"
                 app:titleTextAppearance="@style/TextAppearance.Invio.Headline6" />
-
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView"
+            android:id="@+id/fcv_activity_main"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/navigationRailView"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            app:layout_constraintStart_toEndOf="@id/nrv_activity_main"
+            app:layout_constraintTop_toBottomOf="@+id/abl_activity_main"
             app:navGraph="@navigation/nav_graph" />
 
         <com.google.android.material.navigationrail.NavigationRailView
-            android:id="@+id/navigationRailView"
+            android:id="@+id/nrv_activity_main"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:menu="@menu/bottom_nav_menu" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

@@ -14,7 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailFragment : Fragment(R.layout.fragment_detail), ImdbIconClickListener {
-
     private var detailBinding: FragmentDetailBinding? = null
     private val viewModel: DetailViewModel by viewModels()
 
@@ -22,7 +21,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail), ImdbIconClickListener
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentDetailBinding.bind(view)
         detailBinding = binding
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.imdbClickListener = this
         binding.viewModel = viewModel
@@ -38,12 +36,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail), ImdbIconClickListener
             val intent = Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("$IMDB_TITLE_BASE_URl/$imdbId")
             }
-
             startActivity(intent)
         } else {
             Toast.makeText(
                 requireContext(),
-                getString(R.string.the_imdbid_is_not_exists), Toast.LENGTH_SHORT
+                getString(R.string.the_imdb_id_does_not_exists), Toast.LENGTH_SHORT
             ).show()
         }
     }

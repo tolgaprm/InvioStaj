@@ -5,11 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.prmto.inviostaj.presentation.home.HomeViewModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,12 +15,13 @@
         android:layout_height="match_parent"
         tools:context=".presentation.home.HomeFragment">
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_home_movie_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:isVisible="@{!viewModel.state.error}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="@integer/grid_layout_span_count"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +29,7 @@
             tools:listitem="@layout/movie_item" />
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/pb_home_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:isVisible="@{viewModel.state.loading}"
@@ -38,7 +37,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <include
             android:id="@+id/error_layout"
@@ -52,7 +50,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             bind:onTryAgainClickListener="@{()->viewModel.fetchMovies()}" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
