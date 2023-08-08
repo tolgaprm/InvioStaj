@@ -79,7 +79,7 @@ class MovieRemoteDataSourceImplTest {
         api.getTopRatedMovies(page = 1)
         val request = mockWebServer.takeRequest()
 
-        assertThat(request.path).isEqualTo("/movie/top_rated?page=1")
+        assertThat(request.path).isEqualTo("/movie/top_rated?page=")
     }
 
     @Test

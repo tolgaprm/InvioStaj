@@ -9,6 +9,10 @@ class ConvertMovieGenreListToSeparatedByCommaUseCase @Inject constructor(
     suspend operator fun invoke(
         genreIds: List<Int>
     ): String {
+        if (genreIds.isEmpty()) {
+            return ""
+        }
+
         val genreList = repository.getMovieGenreList().data?.genres ?: return ""
 
         val matchingGenres = genreList.filter { it.id in genreIds }.map { it.name }
