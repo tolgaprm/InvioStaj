@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-    <variable
+        <variable
             name="movieItem"
             type="com.prmto.inviostaj.data.remote.dto.Movie" />
 
@@ -156,6 +155,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_movie_item_name"
                 app:tint="@color/red" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.card.MaterialCardView>
+
 </layout>

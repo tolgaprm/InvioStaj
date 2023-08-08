@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.prmto.inviostaj.ui.explore.ExploreViewModel" />
@@ -68,5 +67,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/et_detail_search" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

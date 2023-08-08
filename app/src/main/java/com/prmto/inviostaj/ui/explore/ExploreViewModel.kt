@@ -47,7 +47,8 @@ class ExploreViewModel @Inject constructor(
     private fun updateDefaultStateWithLoadingTrueAndCurrentQueryState() {
         _exploreUiState.update {
             ExploreUiState(
-                isLoading = true, query = exploreUiState.value.query
+                isLoading = true,
+                query = exploreUiState.value.query
             )
         }
     }

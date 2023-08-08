@@ -8,7 +8,7 @@ import com.squareup.moshi.Json
 
 @Entity(tableName = Constants.FAVORITE_MOVIE_ENTITY_TABLE_NAME)
 data class Movie(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = false) val id: Int,
     val overview: String,
     @Json(name = "poster_path") val posterPath: String?,
     @Json(name = "release_date") val releaseDate: String?,

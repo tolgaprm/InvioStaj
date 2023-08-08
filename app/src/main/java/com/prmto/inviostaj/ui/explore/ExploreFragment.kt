@@ -41,10 +41,10 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
     private fun collectState() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                exploreViewModel.exploreUiState.collectLatest {
-                    movieAdapter.submitList(it.movies)
+                exploreViewModel.exploreUiState.collectLatest { uiState ->
+                    movieAdapter.submitList(uiState.movies)
                     favoriteViewModel.updateIsFavoriteMovie(
-                        it.movies,
+                        uiState.movies,
                         updatedMovies = {
                             exploreViewModel.updateIsFavoriteMovie(it)
                         }

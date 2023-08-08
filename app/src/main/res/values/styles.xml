@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="TextAppearance.Invio.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="fontFamily">@font/source_sans_pro</item>
         <item name="android:textStyle">bold</item>
@@ -15,4 +16,5 @@
     <style name="Widget.Invio.ProgressBar" parent="Widget.AppCompat.ProgressBar">
         <item name="android:indeterminateTint">?colorPrimary</item>
     </style>
+
 </resources>

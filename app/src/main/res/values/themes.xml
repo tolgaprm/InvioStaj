@@ -1,4 +1,5 @@
 <resources>
+
     <style name="Base.Theme.InvioStaj" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/red</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -12,5 +13,7 @@
 
         <item name="android:progressBarStyle">@style/Widget.Invio.ProgressBar</item>
     </style>
+
     <style name="Theme.InvioStaj" parent="Base.Theme.InvioStaj" />
+
 </resources>

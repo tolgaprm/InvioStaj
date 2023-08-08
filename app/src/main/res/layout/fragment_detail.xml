@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-    <import type="com.prmto.inviostaj.constant.ImageSize" />
+        <import type="com.prmto.inviostaj.constant.ImageSize" />
 
         <variable
             name="viewModel"
@@ -169,5 +168,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
+
 </layout>

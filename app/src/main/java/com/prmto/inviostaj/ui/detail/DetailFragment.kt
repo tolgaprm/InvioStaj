@@ -24,12 +24,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail), ImdbIconClickListener
         detailBinding?.imdbClickListener = this
         detailBinding?.viewModel = viewModel
     }
-
-    override fun onDestroyView() {
-        detailBinding = null
-        super.onDestroyView()
-    }
-
     override fun onImdbIconClicked(imdbId: String?) {
         if (imdbId != null) {
             val intent = Intent(Intent.ACTION_VIEW).apply {
@@ -42,5 +36,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail), ImdbIconClickListener
                 getString(R.string.the_imdb_id_does_not_exists), Toast.LENGTH_SHORT
             ).show()
         }
+    }
+
+    override fun onDestroyView() {
+        detailBinding = null
+        super.onDestroyView()
     }
 }

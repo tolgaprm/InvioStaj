@@ -35,11 +35,18 @@ class DetailViewModel @Inject constructor(
             response.onSuccess { data ->
                 _detailUiState.update {
                     it.copy(
-                        isLoading = false, movieDetail = data, isError = false
+                        isLoading = false,
+                        movieDetail = data,
+                        isError = false
                     )
                 }
             }.onError {
-                _detailUiState.update { it.copy(isLoading = false, isError = true) }
+                _detailUiState.update {
+                    it.copy(
+                        isLoading = false,
+                        isError = true
+                    )
+                }
             }
         }
     }

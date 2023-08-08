@@ -41,11 +41,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun collectState() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                homeViewModel.state.collectLatest {
-                    movieAdapter.submitList(it.movies)
-                    favoriteViewModel.updateIsFavoriteMovie(it.movies, updatedMovies = {
-                        homeViewModel.updateIsFavoriteMovie(it)
-                    })
+                homeViewModel.state.collectLatest { uiState ->
+                    movieAdapter.submitList(uiState.movies)
+                    favoriteViewModel.updateIsFavoriteMovie(
+                        uiState.movies,
+                        updatedMovies = {
+                            homeViewModel.updateIsFavoriteMovie(it)
+                        }
+                    )
                 }
             }
         }
