@@ -24,7 +24,7 @@ android {
         versionName = "1.0"
         buildConfigField("String", "API_KEY", "\"${properties.getProperty("API_KEY")}\"")
         buildConfigField("String", "TMDB_BASE_URL", "\"${properties.getProperty("TMDB_BASE_URL")}\"")
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.prmto.inviostaj.HiltTestRunner"
     }
 
     buildTypes {
