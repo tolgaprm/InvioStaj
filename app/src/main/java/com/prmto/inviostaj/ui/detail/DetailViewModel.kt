@@ -31,7 +31,6 @@ class DetailViewModel @Inject constructor(
         viewModelScope.launch {
             _detailUiState.update { it.copy(isLoading = true) }
             val response = getMovieDetailUseCase(movieId = movieId)
-
             response.onSuccess { data ->
                 _detailUiState.update {
                     it.copy(

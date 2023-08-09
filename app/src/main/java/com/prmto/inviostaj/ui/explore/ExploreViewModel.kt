@@ -77,7 +77,7 @@ class ExploreViewModel @Inject constructor(
     }
 
     fun updateIsFavoriteMovie(
-        filledFavoriteStatusOfMovies: List<Movie>,
+        filledFavoriteStatusOfMovies: List<Movie>
     ) {
         _exploreUiState.update {
             it.copy(

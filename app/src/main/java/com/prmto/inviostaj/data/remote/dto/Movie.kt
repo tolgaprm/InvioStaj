@@ -36,35 +36,6 @@ data class Movie(
         voteAverage: Double,
         genresBySeparatedByComma: String,
         voteCountByString: String,
-        isFavorite: Boolean,
-        voteCount: Int,
-        genreIds: List<Int>
-    ) : this(
-        id = id,
-        overview = overview,
-        posterPath = posterPath,
-        releaseDate = releaseDate,
-        originalTitle = originalTitle,
-        backdropPath = backdropPath,
-        voteAverage = voteAverage,
-        genresBySeparatedByComma = genresBySeparatedByComma,
-        voteCountByString = voteCountByString,
-        isFavorite = isFavorite,
-        imdbId = "",
-        voteCount = voteCount,
-        genreIds = genreIds
-    )
-
-    constructor(
-        id: Int,
-        overview: String,
-        posterPath: String?,
-        releaseDate: String?,
-        originalTitle: String,
-        backdropPath: String?,
-        voteAverage: Double,
-        genresBySeparatedByComma: String,
-        voteCountByString: String,
         isFavorite: Boolean
     ) : this(
         id = id,

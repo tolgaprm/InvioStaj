@@ -13,5 +13,4 @@
         android:id="@+id/favoriteFragment"
         android:icon="@drawable/ic_favorite_black"
         android:title="@string/favorite_bottom_nav" />
-
 </menu>

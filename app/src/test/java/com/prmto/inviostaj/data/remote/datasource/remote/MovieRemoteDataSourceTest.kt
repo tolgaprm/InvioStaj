@@ -37,10 +37,10 @@ class MovieRemoteDataSourceTest {
         mockWebServer = MockWebServer()
         moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         api = Retrofit.Builder().addConverterFactory(
-                MoshiConverterFactory.create(
-                    moshi
-                )
-            ).baseUrl(mockWebServer.url("/")).build().create(TmdbApi::class.java)
+            MoshiConverterFactory.create(
+                moshi
+            )
+        ).baseUrl(mockWebServer.url("/")).build().create(TmdbApi::class.java)
 
         movieRemoteDataSource = MovieRemoteDataSourceImpl(
             api = api

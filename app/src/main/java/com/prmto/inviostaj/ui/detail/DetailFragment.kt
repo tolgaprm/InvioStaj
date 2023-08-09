@@ -33,7 +33,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail), ImdbIconClickListener
         } else {
             Toast.makeText(
                 requireContext(),
-                getString(R.string.the_imdb_id_does_not_exists), Toast.LENGTH_SHORT
+                getString(R.string.the_imdb_id_does_not_exists),
+                Toast.LENGTH_SHORT
             ).show()
         }
     }

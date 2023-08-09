@@ -29,7 +29,6 @@
         <argument
             android:name="movieId"
             app:argType="integer" />
-
     </fragment>
 
     <fragment

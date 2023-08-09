@@ -9,7 +9,6 @@ import com.prmto.inviostaj.databinding.MovieItemBinding
 class MovieViewHolder(
     val binding: MovieItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
-
     fun bind(
         movie: Movie
     ) {

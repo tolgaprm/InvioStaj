@@ -12,11 +12,8 @@ class ConvertMovieGenreListToSeparatedByCommaUseCase @Inject constructor(
         if (genreIds.isEmpty()) {
             return ""
         }
-
         val genreList = repository.getMovieGenreList().data?.genres ?: return ""
-
         val matchingGenres = genreList.filter { it.id in genreIds }.map { it.name }
-
         return matchingGenres.joinToString(", ")
     }
 }

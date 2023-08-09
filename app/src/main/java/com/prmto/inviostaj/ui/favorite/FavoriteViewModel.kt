@@ -8,6 +8,8 @@ import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.data.repository.MovieRepository
 import com.prmto.inviostaj.domain.usecase.FillFavoriteStatusOfMovies
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -22,12 +24,14 @@ class FavoriteViewModel @Inject constructor(
     private val _favoriteUiState = MutableStateFlow(FavoriteUiState())
     val favoriteUiState = _favoriteUiState.asStateFlow()
 
+    private var fetchMoviesJob: Job? = null
+
     init {
-        fetchFavoriteMovies()
+        fetchMoviesJob = fetchFavoriteMovies()
     }
 
-    fun fetchFavoriteMovies() {
-        viewModelScope.launch {
+    fun fetchFavoriteMovies(): Job {
+        return viewModelScope.launch {
             _favoriteUiState.update { it.copy(isLoading = true) }
             val resource = movieRepository.getFavoriteMovies()
             resource.onSuccess { favoriteMovies ->
@@ -55,7 +59,7 @@ class FavoriteViewModel @Inject constructor(
             } else {
                 movieRepository.insertFavoriteMovie(movie.copy(isFavorite = true))
             }
-            fetchFavoriteMovies()
+            fetchMoviesJob = fetchFavoriteMovies()
         }
     }
 
@@ -64,6 +68,7 @@ class FavoriteViewModel @Inject constructor(
         updatedMovies: (List<Movie>) -> Unit
     ) {
         viewModelScope.launch {
+            delay(200)
             val filledFavoriteStatusMovies = fillFavoriteStatusOfMovies(
                 favoriteMovies = favoriteUiState.value.favoriteMovies,
                 movies = movies

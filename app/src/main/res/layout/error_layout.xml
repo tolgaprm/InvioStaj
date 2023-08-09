@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:onClickListener="@{onTryAgainClickListener}"
             android:text="@string/try_again" />
+
     </LinearLayout>
 
 </layout>

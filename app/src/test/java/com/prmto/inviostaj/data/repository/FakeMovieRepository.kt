@@ -39,6 +39,7 @@ class FakeMovieRepository(
     }
 
     override suspend fun getSearchMovies(query: String, page: Int): Resource<List<Movie>> {
+        delay(1000)
         return createResourceWithStatus(
             isReturnSuccess,
             TestConstants.responseListOfMovies.filter {

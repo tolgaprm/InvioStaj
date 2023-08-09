@@ -3,7 +3,7 @@ package com.prmto.inviostaj.domain.usecase
 import com.prmto.inviostaj.constant.Resource
 import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.data.repository.MovieRepository
-import com.prmto.inviostaj.domain.util.updateMovieListWithFormattedInfo
+import com.prmto.inviostaj.domain.util.MovieUtils
 import javax.inject.Inject
 
 class GetMoviesUseCase @Inject constructor(
@@ -17,13 +17,15 @@ class GetMoviesUseCase @Inject constructor(
         } else {
             repository.getSearchMovies(query = query, page = page)
         }
-        return response.updateMovieListWithFormattedInfo(
-            convertGenreListWithComma = { genreIds ->
-                convertMovieGenreListToSeparatedByCommaUseCase(genreIds = genreIds)
-            },
-            convertReleaseDate = { releaseDate ->
-                convertDateFormatUseCase(inputDate = releaseDate)
+        return response.data?.let { movieList ->
+            val listOfMovie = movieList.map { movie ->
+                movie.copy(
+                    genresBySeparatedByComma = convertMovieGenreListToSeparatedByCommaUseCase(movie.genreIds),
+                    voteCountByString = MovieUtils.formatVoteCount(voteCount = movie.voteCount),
+                    releaseDate = convertDateFormatUseCase(movie.releaseDate)
+                )
             }
-        )
+            Resource.Success(listOfMovie)
+        } ?: Resource.Error(response.exception)
     }
 }

@@ -51,7 +51,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-
     private fun updateIsLastPage(isLastPage: Boolean) {
         _homeUiState.update {
             it.copy(

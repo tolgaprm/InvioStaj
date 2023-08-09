@@ -31,10 +31,10 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         exploreBinding = FragmentExploreBinding.bind(view)
-        setupRecyclerViewAndAdapter()
-        addScrollListener()
         exploreBinding?.lifecycleOwner = viewLifecycleOwner
         exploreBinding?.viewModel = exploreViewModel
+        setupRecyclerViewAndAdapter()
+        addScrollListener()
         collectState()
     }
 
@@ -72,6 +72,12 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
             object : MovieItemClickListener {
                 override fun onToggleFavoriteClicked(movie: Movie) {
                     favoriteViewModel.toggleFavoriteMovie(movie)
+                    favoriteViewModel.updateIsFavoriteMovie(
+                        movies = exploreViewModel.exploreUiState.value.movies,
+                        updatedMovies = {
+                            exploreViewModel.updateIsFavoriteMovie(it)
+                        }
+                    )
                 }
 
                 override fun onMovieClicked(movieId: Int) {

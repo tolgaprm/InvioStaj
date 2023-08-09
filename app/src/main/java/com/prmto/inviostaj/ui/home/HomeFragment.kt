@@ -71,6 +71,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         movieAdapter = MovieAdapter(object : MovieItemClickListener {
             override fun onToggleFavoriteClicked(movie: Movie) {
                 favoriteViewModel.toggleFavoriteMovie(movie)
+                favoriteViewModel.updateIsFavoriteMovie(
+                    homeViewModel.state.value.movies,
+                    updatedMovies = {
+                        homeViewModel.updateIsFavoriteMovie(it)
+                    }
+                )
             }
 
             override fun onMovieClicked(movieId: Int) {
