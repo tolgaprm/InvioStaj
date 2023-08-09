@@ -1,6 +1,6 @@
 package com.prmto.inviostaj.data.remote.response
 
-val topRatedMoviesResponsePage1 = """
+val topRatedMoviesJsonResponsePage1 = """
     {
         "page": 1,
         "results": [
@@ -399,3 +399,5 @@ val topRatedMoviesResponsePage1 = """
         "total_results": 11330
     }
 """.trimIndent()
+
+val topRatedMoviesErrorResponse = topRatedMoviesJsonResponsePage1.removePrefix("{")
