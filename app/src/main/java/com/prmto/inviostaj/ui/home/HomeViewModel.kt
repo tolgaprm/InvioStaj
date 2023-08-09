@@ -1,6 +1,5 @@
 package com.prmto.inviostaj.ui.home
 
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.prmto.inviostaj.constant.onError
@@ -34,7 +33,7 @@ class HomeViewModel @Inject constructor(
                 )
             }
             val resource =
-                getMoviesUseCase(page = state.value.currentPage++)
+                getMoviesUseCase(page = ++state.value.currentPage)
 
             resource
                 .onSuccess {
@@ -52,8 +51,8 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    @VisibleForTesting
-    fun updateIsLastPage(isLastPage: Boolean) {
+
+    private fun updateIsLastPage(isLastPage: Boolean) {
         _homeUiState.update {
             it.copy(
                 isLastPage = isLastPage
@@ -61,8 +60,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    @VisibleForTesting
-    fun updateHomeStateWithNewMovies(movies: List<Movie>) {
+    private fun updateHomeStateWithNewMovies(movies: List<Movie>) {
         _homeUiState.update {
             it.copy(
                 isLoading = false,

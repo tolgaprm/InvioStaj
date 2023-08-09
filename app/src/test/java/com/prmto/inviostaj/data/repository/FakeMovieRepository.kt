@@ -1,40 +1,47 @@
 package com.prmto.inviostaj.data.repository
 
 import com.prmto.inviostaj.constant.Resource
+import com.prmto.inviostaj.data.TestConstants
 import com.prmto.inviostaj.data.remote.dto.GenreList
 import com.prmto.inviostaj.data.remote.dto.Movie
 import com.prmto.inviostaj.data.util.createResourceWithStatus
 import kotlinx.coroutines.delay
 
 class FakeMovieRepository(
-    private val isSuccess: Boolean = true,
+    private val isReturnSuccess: Boolean = true,
     private val isReturnEmptyGenre: Boolean = false
 ) : MovieRepository {
-
     private val favoriteMovies: MutableList<Movie> = mutableListOf()
+
     override suspend fun getTopRatedMovies(page: Int): Resource<List<Movie>> {
-        return createResourceWithStatus(isSuccess, FakeResponse.responseListOfMovies)
+        delay(1000)
+        return when (page) {
+            1 -> createResourceWithStatus(isReturnSuccess, TestConstants.responseListOfMovies)
+            2 -> createResourceWithStatus(isReturnSuccess, TestConstants.responseListOfMovies2)
+            else -> createResourceWithStatus(isReturnSuccess, emptyList())
+        }
     }
 
     override suspend fun getMovieGenreList(): Resource<GenreList> {
         val response = if (isReturnEmptyGenre) {
             GenreList(emptyList())
         } else {
-            FakeResponse.responseGenreList
+            TestConstants.responseGenreList
         }
-        return createResourceWithStatus(isSuccess, response)
+        return createResourceWithStatus(isReturnSuccess, response)
     }
 
     override suspend fun getMovieDetail(movieId: Int): Resource<Movie> {
+        delay(1000)
         return createResourceWithStatus(
-            isSuccess, FakeResponse.responseMovieDetail
+            isReturnSuccess, TestConstants.responseMovieDetail
         )
     }
 
     override suspend fun getSearchMovies(query: String, page: Int): Resource<List<Movie>> {
         return createResourceWithStatus(
-            isSuccess,
-            FakeResponse.responseListOfMovies.filter {
+            isReturnSuccess,
+            TestConstants.responseListOfMovies.filter {
                 it.originalTitle.lowercase().contains(query.lowercase())
             }
         )
@@ -42,7 +49,7 @@ class FakeMovieRepository(
 
     override suspend fun getFavoriteMovies(): Resource<List<Movie>> {
         delay(1000)
-        return createResourceWithStatus(isSuccess, favoriteMovies.toList())
+        return createResourceWithStatus(isReturnSuccess, favoriteMovies.toList())
     }
 
     override suspend fun insertFavoriteMovie(movie: Movie) {

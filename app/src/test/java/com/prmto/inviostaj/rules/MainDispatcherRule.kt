@@ -1,4 +1,4 @@
-package com.prmto.inviostaj.util
+package com.prmto.inviostaj.rules
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -1,6 +1,6 @@
 package com.prmto.inviostaj.data.remote.response
 
-val genreResponse = """
+val genreJsonResponse = """
     {
         "genres": [
             {
@@ -82,3 +82,5 @@ val genreResponse = """
         ]
     }
 """.trimIndent()
+
+val genreErrorResponse = genreJsonResponse.removePrefix("{")

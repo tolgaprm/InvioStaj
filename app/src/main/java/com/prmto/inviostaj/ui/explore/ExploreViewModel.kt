@@ -32,7 +32,7 @@ class ExploreViewModel @Inject constructor(
             if (query.isNotBlank()) {
                 updateDefaultStateWithLoadingTrueAndCurrentQueryState()
                 val resource = getMoviesUseCase(
-                    query = query, page = exploreUiState.value.currentPage++
+                    query = query, page = ++exploreUiState.value.currentPage
                 )
                 resource.onSuccess {
                     updateIsLastPage(isLastPage = it?.isEmpty() ?: true)

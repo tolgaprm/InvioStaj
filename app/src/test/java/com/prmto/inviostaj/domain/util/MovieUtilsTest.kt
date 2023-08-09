@@ -5,7 +5,6 @@ import com.prmto.inviostaj.util.Constants
 import org.junit.Test
 
 class MovieUtilsTest {
-
     @Test
     fun `calculateRatingBarValue should return valid rating`() {
         val voteAverage = 5.0

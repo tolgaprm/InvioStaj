@@ -3,19 +3,11 @@ package com.prmto.inviostaj.domain.usecase
 import com.google.common.truth.Truth.assertThat
 import com.prmto.inviostaj.data.repository.FakeMovieRepository
 import com.prmto.inviostaj.data.repository.MovieRepository
-import com.prmto.inviostaj.util.MainDispatcherRule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
-@ExperimentalCoroutinesApi
 class ConvertMovieGenreListToSeparatedByCommaUseCaseTest {
-
-    @get:Rule
-    var mainCoroutineRule = MainDispatcherRule()
-
     private lateinit var convertMovieGenreListToSeparatedByCommaUseCase: ConvertMovieGenreListToSeparatedByCommaUseCase
     private lateinit var repository: MovieRepository
 
@@ -46,7 +38,7 @@ class ConvertMovieGenreListToSeparatedByCommaUseCaseTest {
 
     @Test
     fun `invoke() should return empty string when getMovieGenreList return error`() = runTest {
-        repository = FakeMovieRepository(isSuccess = false)
+        repository = FakeMovieRepository(isReturnSuccess = false)
         passNewRepositoryToUseCase(repository = repository)
         val genreIds = listOf(18)
         val expectedResult = ""

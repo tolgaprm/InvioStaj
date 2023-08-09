@@ -6,6 +6,7 @@ import org.junit.Test
 
 class ConvertDateFormatUseCaseTest {
     private lateinit var convertDateFormatUseCase: ConvertDateFormatUseCase
+
     @Before
     fun setUp() {
         convertDateFormatUseCase = ConvertDateFormatUseCase()
